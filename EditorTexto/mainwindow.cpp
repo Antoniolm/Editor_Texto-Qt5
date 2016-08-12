@@ -3,6 +3,11 @@
 #include <QTextCursor>
 #include <QString>
 
+//////////////////////////////////////////
+///
+///@author Antonio David López Machado
+///
+/////////////////////////////////////////
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -17,6 +22,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_mainText_cursorPositionChanged()
 {
+    //Obtenemos el cursor de nuestro QTextEdit
     QTextCursor cursor = ui->mainText->textCursor();
+    //Actualizamos la posición del cursor
     ui->state->setText("Rows - "+QString::number(cursor.blockNumber())+" colums - "+ QString::number(cursor.positionInBlock()));
+}
+
+void MainWindow::on_actionNew_File_triggered()
+{
+    //Creamos una nueva ventana
+    MainWindow * window = new MainWindow();
+    //Hacemos visible la ventana
+    window->show(); /
 }

@@ -5,6 +5,12 @@
 #include <QTextEdit>
 #include <QLabel>
 
+//////////////////////////////////////////
+///
+///@author Antonio David López Machado
+///
+/////////////////////////////////////////
+
 namespace Ui {
 class MainWindow;
 }
@@ -19,6 +25,8 @@ public:
 
 private slots:
     void on_mainText_cursorPositionChanged();
+
+    void on_actionNew_File_triggered();
 
 private:
     Ui::MainWindow *ui;
