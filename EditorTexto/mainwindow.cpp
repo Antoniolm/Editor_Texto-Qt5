@@ -33,5 +33,16 @@ void MainWindow::on_actionNew_File_triggered()
     //Creamos una nueva ventana
     MainWindow * window = new MainWindow();
     //Hacemos visible la ventana
-    window->show(); /
+    window->show();
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    //Cerramos la ventana
+    close();
+}
+
+void MainWindow::on_actionClose_file_triggered()
+{
+
 }

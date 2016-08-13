@@ -28,6 +28,14 @@ private slots:
 
     void on_actionNew_File_triggered();
 
+    void on_actionExit_2_triggered();
+
+    void on_actionClose_file_triggered();
+
+    void on_actionExit_triggered();
+
+    void on_MainWindow_iconSizeChanged(const QSize &iconSize);
+
 private:
     Ui::MainWindow *ui;
     QTextEdit *mainText;

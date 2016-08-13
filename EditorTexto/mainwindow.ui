@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>501</width>
+      <width>521</width>
       <height>341</height>
      </rect>
     </property>
@@ -27,7 +27,7 @@
    <widget class="QLabel" name="state">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>320</x>
       <y>340</y>
       <width>211</width>
       <height>20</height>
@@ -53,16 +53,16 @@
     </property>
     <addaction name="actionNew_File"/>
     <addaction name="actionOpen_File"/>
-    <addaction name="actionExit"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
     <addaction name="actionClose_file"/>
-    <addaction name="actionClose_file_2"/>
-    <addaction name="actionExit_2"/>
+    <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuEdition">
     <property name="title">
-     <string>Edition</string>
+     <string>Edit</string>
     </property>
-    <addaction name="actionBusar"/>
+    <addaction name="actionSearch"/>
     <addaction name="actionSearch_next"/>
     <addaction name="actionReplace"/>
    </widget>
@@ -113,27 +113,27 @@
     <string>Open File</string>
    </property>
   </action>
-  <action name="actionExit">
+  <action name="actionSave">
    <property name="text">
     <string>Save</string>
    </property>
   </action>
-  <action name="actionClose_file">
+  <action name="actionSaveAs">
    <property name="text">
     <string>Save as</string>
    </property>
   </action>
-  <action name="actionClose_file_2">
+  <action name="actionClose_file">
    <property name="text">
     <string>Close File</string>
    </property>
   </action>
-  <action name="actionExit_2">
+  <action name="actionExit">
    <property name="text">
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionBusar">
+  <action name="actionSearch">
    <property name="text">
     <string>Search</string>
    </property>
