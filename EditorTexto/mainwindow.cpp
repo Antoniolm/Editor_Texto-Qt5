@@ -4,6 +4,7 @@
 #include <QString>
 #include <QFileDialog>
 #include <QTextStream>
+#include <QIODevice>
 
 //////////////////////////////////////////
 ///
@@ -64,12 +65,9 @@ void MainWindow::on_actionClose_file_triggered()
 {
     //Vaciamos nuestro mainText del contenido del fichero
     ui->mainText->setText("");
-
-    //Cerramos el fichero
-    if(existFile && file->isOpen())
-        file->close();
     existFile=false;
 }
+
 
 ///////////////////////////
 /// \brief MainWindow::on_actionOpen_File_triggered
@@ -95,5 +93,30 @@ void MainWindow::on_actionOpen_File_triggered()
     //Enviamos el texto del documento a nuestro mainText
     ui->mainText->setText(contentFile);
     existFile=true;
+    file->close();
+}
 
+
+/////////////////////////////////
+/// \brief MainWindow::on_actionSave_triggered
+///  Método activado cuando se pulsa el boton Save
+/// Permite al usuario guardar los cambios realizados en el fichero
+/////////////////////////////////////////
+void MainWindow::on_actionSave_triggered()
+{
+    //Si existe un fichero
+    if(existFile){
+        //Realizamos la apertura del fichero en modo escritura y con la bandera para reliazar Truncate
+        if(!file->open(QFile::WriteOnly| QFile::Truncate | QFile::Text))return;
+
+        //Escribimos en el fichero
+        QString texto=ui->mainText->toPlainText();
+
+        //Realizamos el canal de comunicación y realizamos una escritura en el fichero
+        QTextStream out(file);
+        out<< texto;
+
+        //Cerramos el fichero
+        file->close();
+    }
 }
