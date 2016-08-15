@@ -15,8 +15,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
+    this->setWindowTitle("Text Editor");
     existFile=false;
+
+    //Inicializamos el estado de los botones close and save
+    ui->actionClose_file->setEnabled(false);
+    ui->actionSave->setEnabled(false);
+
 }
 
 MainWindow::~MainWindow()
@@ -66,6 +73,15 @@ void MainWindow::on_actionClose_file_triggered()
     //Vaciamos nuestro mainText del contenido del fichero
     ui->mainText->setText("");
     existFile=false;
+
+    //Cambiamos el estado de los botones close file and save
+    ui->actionClose_file->setEnabled(false);
+    ui->actionSave->setEnabled(false);
+
+    //Actualizamos el titulo de la ventana
+    this->setWindowTitle("Text Editor");
+
+
 }
 
 
@@ -94,6 +110,14 @@ void MainWindow::on_actionOpen_File_triggered()
     ui->mainText->setText(contentFile);
     existFile=true;
     file->close();
+
+    //Cambiamos el estado de los botones Close File y save
+    ui->actionClose_file->setEnabled(true);
+    ui->actionSave->setEnabled(true);
+
+    //Actualizamos el titulo de nuestra ventana con el nombre del txt
+    this->setWindowTitle("Text Editor - "+fileName);
+
 }
 
 
