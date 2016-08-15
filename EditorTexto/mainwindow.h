@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTextEdit>
 #include <QLabel>
+#include <QFile>
 
 //////////////////////////////////////////
 ///
@@ -36,10 +37,14 @@ private slots:
 
     void on_MainWindow_iconSizeChanged(const QSize &iconSize);
 
+    void on_actionOpen_File_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTextEdit *mainText;
     QLabel *state;
+    QFile *file;
+    bool existFile;
 };
 
 #endif // MAINWINDOW_H
