@@ -14,16 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTextEdit" name="mainText">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>230</y>
-      <width>541</width>
-      <height>111</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="state">
     <property name="geometry">
      <rect>
@@ -43,7 +33,7 @@
       <x>0</x>
       <y>0</y>
       <width>541</width>
-      <height>231</height>
+      <height>341</height>
      </rect>
     </property>
     <property name="currentIndex">

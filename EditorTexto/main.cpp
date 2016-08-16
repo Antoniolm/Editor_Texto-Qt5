@@ -1,11 +1,13 @@
-#include "mainwindow.h"
-#include <QApplication>
-
 //////////////////////////////////////////
 ///
 ///@author Antonio David López Machado
 ///
 /////////////////////////////////////////
+
+#include "mainwindow.h"
+#include <QApplication>
+
+
 
 int main(int argc, char *argv[])
 {

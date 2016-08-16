@@ -1,16 +1,13 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include <QTextCursor>
-#include <QString>
-#include <QFileDialog>
-#include <QTextStream>
-#include <QIODevice>
-
 //////////////////////////////////////////
 ///
 ///@author Antonio David López Machado
 ///
 /////////////////////////////////////////
+
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -41,9 +38,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_mainText_cursorPositionChanged()
 {
     //Obtenemos el cursor de nuestro QTextEdit
-    QTextCursor cursor = ui->mainText->textCursor();
+    //QTextCursor cursor = ui->mainText->textCursor();
     //Actualizamos la posición del cursor
-    ui->state->setText("Rows - "+QString::number(cursor.blockNumber())+" colums - "+ QString::number(cursor.positionInBlock()));
+    //ui->state->setText("Rows - "+QString::number(cursor.blockNumber())+" colums - "+ QString::number(cursor.positionInBlock()));
 }
 
 ////////////////////////////////////////////////
@@ -85,7 +82,7 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionClose_file_triggered()
 {
     //Vaciamos nuestro mainText del contenido del fichero
-    ui->mainText->setText("");
+    /*ui->mainText->setText("");
     existFile=false;
 
     //Cambiamos el estado de los botones close file and save
@@ -93,7 +90,7 @@ void MainWindow::on_actionClose_file_triggered()
     ui->actionSave->setEnabled(false);
 
     //Actualizamos el titulo de la ventana
-    this->setWindowTitle("Text Editor");
+    this->setWindowTitle("Text Editor");*/
 
 
 }
@@ -108,22 +105,10 @@ void MainWindow::on_actionClose_file_triggered()
 void MainWindow::on_actionOpen_File_triggered()
 {
     //Lanzamos un QFileDialog y obtenemos el nombre del fichero a abrir
-    QString fileName= QFileDialog::getOpenFileName(this,tr("Open file"),"C://","Text files (*.txt)");
+    QString fileName= QFileDialog::getOpenFileName(this,tr("Open File"),"C://","Text files (*.txt)");
 
-    //Creamos un QFile con el nombre del fichero seleccionado
-    file=new QFile(fileName);
-
-    //Realizamos la apertura del fichero en modo lectura y escritura
-    if(!file->open(QFile::ReadOnly | QFile::Text))return;
-
-    //Realizamos el canal de comunicación y realizamos una lectura del fichero
-    QTextStream in(file);
-    QString contentFile = in.readAll();
-
-    //Enviamos el texto del documento a nuestro mainText
-    ui->mainText->setText(contentFile);
-    existFile=true;
-    file->close();
+    int currentPosition=ui->groupQText->currentIndex();
+    docs[currentPosition].openDocument(fileName);
 
     //Cambiamos el estado de los botones Close File y save
     ui->actionClose_file->setEnabled(true);
@@ -143,7 +128,7 @@ void MainWindow::on_actionOpen_File_triggered()
 void MainWindow::on_actionSave_triggered()
 {
     //Si existe un fichero
-    if(existFile){
+    /*if(existFile){
         //Realizamos la apertura del fichero en modo escritura y con la bandera para reliazar Truncate
         if(!file->open(QFile::WriteOnly| QFile::Truncate | QFile::Text))return;
 
@@ -156,7 +141,7 @@ void MainWindow::on_actionSave_triggered()
 
         //Cerramos el fichero
         file->close();
-    }
+    }*/
 }
 /////////////////////////////////
 /// \brief MainWindow::on_actionSaveAs_triggered
@@ -165,7 +150,7 @@ void MainWindow::on_actionSave_triggered()
 ///////////////////////////////////
 void MainWindow::on_actionSaveAs_triggered()
 {
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+    /*QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                                 "C://",
                                                 QFileDialog::ShowDirsOnly
                                                 | QFileDialog::DontResolveSymlinks);
@@ -188,5 +173,24 @@ void MainWindow::on_actionSaveAs_triggered()
     ui->actionSave->setEnabled(true);
 
     //Actualizamos el titulo de nuestra ventana con el nombre del txt
-    this->setWindowTitle("Text Editor - "+dir+"/File.txt");
+    this->setWindowTitle("Text Editor - "+dir+"/File.txt");*/
+}
+
+/////////////////////////////////////////////////
+/// \brief MainWindow::on_groupQText_currentChanged
+/// \param index
+///
+///
+//////////////////////////////////////////////////
+void MainWindow::on_groupQText_currentChanged(int index)
+{
+    int currentPosition=ui->groupQText->currentIndex();
+    if(docs[currentPosition].isOpenFile()){
+        ui->actionClose_file->setEnabled(true);
+        ui->actionSave->setEnabled(true);
+    }
+    else{
+        ui->actionClose_file->setEnabled(false);
+        ui->actionSave->setEnabled(false);
+    }
 }

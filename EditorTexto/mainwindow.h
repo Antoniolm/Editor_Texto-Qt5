@@ -1,3 +1,9 @@
+//////////////////////////////////////////
+///
+///@author Antonio David López Machado
+///
+/////////////////////////////////////////
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -8,12 +14,12 @@
 #include <QTableWidget>
 #include <QList>
 #include <document.h>
+#include <QTextCursor>
+#include <QString>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QIODevice>
 
-//////////////////////////////////////////
-///
-///@author Antonio David López Machado
-///
-/////////////////////////////////////////
 
 namespace Ui {
 class MainWindow;
@@ -45,6 +51,8 @@ private slots:
     void on_actionSave_triggered();
 
     void on_actionSaveAs_triggered();
+
+    void on_groupQText_currentChanged(int index);
 
 private:
     Ui::MainWindow *ui;
