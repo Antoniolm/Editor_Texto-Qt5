@@ -5,6 +5,9 @@
 #include <QTextEdit>
 #include <QLabel>
 #include <QFile>
+#include <QTableWidget>
+#include <QList>
+#include <document.h>
 
 //////////////////////////////////////////
 ///
@@ -48,7 +51,10 @@ private:
     QTextEdit *mainText;
     QLabel *state;
     QFile *file;
+    QTabWidget *groupQText;
+    QList<document> docs;
     bool existFile;
+
 };
 
 #endif // MAINWINDOW_H

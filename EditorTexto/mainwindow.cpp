@@ -17,12 +17,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
+
     this->setWindowTitle("Text Editor");
-    existFile=false;
+    existFile=false;//I need to review this variable because I think that I dont need it
 
     //Inicializamos el estado de los botones close and save
     ui->actionClose_file->setEnabled(false);
     ui->actionSave->setEnabled(false);
+
+    QTextEdit *Text=new QTextEdit();
+    document newDoc(Text);
+    docs.append(newDoc);
+    ui->groupQText->addTab(Text,"Untitled.txt");
+    //ui->groupQText->currentIndex();
 
 }
 
@@ -42,14 +49,21 @@ void MainWindow::on_mainText_cursorPositionChanged()
 ////////////////////////////////////////////////
 /// \brief MainWindow::on_actionNew_File_triggered
 /// /// Método activado cuando se pulsa el boton New File
-/// Permite al usuario abrir una nueva ventana del editor
+/// Permite al usuario abrir una nueva pestaña del editor
 ///////////////////////////////////////////////////////////////
 void MainWindow::on_actionNew_File_triggered()
 {
-    //Creamos una nueva ventana
-    MainWindow * window = new MainWindow();
+    //Creamos un nuevo document and lo añadimos al QList
+    QTextEdit *Text=new QTextEdit();
+    document newDoc(Text);
+    docs.append(newDoc);
+
+    //Creamos una nueva pestaña
+    ui->groupQText->addTab(Text,"Untitled.txt");
+
+    //MainWindow * window = new MainWindow();
     //Hacemos visible la ventana
-    window->show();
+    //window->show();
 }
 
 //////////////////////////////////////////////
@@ -100,7 +114,7 @@ void MainWindow::on_actionOpen_File_triggered()
     file=new QFile(fileName);
 
     //Realizamos la apertura del fichero en modo lectura y escritura
-    if(!file->open(QFile::ReadWrite | QFile::Text))return;
+    if(!file->open(QFile::ReadOnly | QFile::Text))return;
 
     //Realizamos el canal de comunicación y realizamos una lectura del fichero
     QTextStream in(file);
