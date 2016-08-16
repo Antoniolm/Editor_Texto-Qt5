@@ -3,6 +3,7 @@
 #include <QTextCursor>
 #include <QString>
 #include <QFileDialog>
+#include <Qdir
 #include <QTextStream>
 #include <QIODevice>
 
@@ -144,35 +145,12 @@ void MainWindow::on_actionSave_triggered()
         file->close();
     }
 }
-/////////////////////////////////
-/// \brief MainWindow::on_actionSaveAs_triggered
-/// Método activado cuando se pulsa el boton Save
-/// Permite al usuario guardar el contenido en un nuevo fichero
-///////////////////////////////////
+
 void MainWindow::on_actionSaveAs_triggered()
 {
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                                 "C://",
                                                 QFileDialog::ShowDirsOnly
                                                 | QFileDialog::DontResolveSymlinks);
-
-    //Creamos nuestro nuevo fichero
-    file=new QFile(dir+"/File.txt");
-
-    //Realizamos la apertura del fichero en modo escriturae
-    if(!file->open(QFile::WriteOnly | QFile::Text))return;
-
-    //Realizamos el canal de comunicación y realizamos una escritura en el fichero
-    QTextStream out(file);
-    out<< ui->mainText->toPlainText();
-
-    //Cerramos el fichero
-    file->close();
-
-    //Cambiamos el estado de los botones Close File y save
-    ui->actionClose_file->setEnabled(true);
-    ui->actionSave->setEnabled(true);
-
-    //Actualizamos el titulo de nuestra ventana con el nombre del txt
-    this->setWindowTitle("Text Editor - "+dir+"/File.txt");
+    this->setWindowTitle(dir);
 }
