@@ -13,8 +13,23 @@ document::document(QTextEdit *panel){
     isOpen=false;
 }
 
-void document::save(){
+///////////////////////////////
+/// \brief document::openDocument
+///Método para la guardar los cambios realizados sobre un fichero
+///////////////////////////////
+void document::saveDocument(){
+    //Realizamos la apertura del fichero en modo escritura y con la bandera para reliazar Truncate
+    if(!file->open(QFile::WriteOnly| QFile::Truncate | QFile::Text))return;
 
+    //Escribimos en el fichero
+    QString texto=textPanel->toPlainText();
+
+    //Realizamos el canal de comunicación y realizamos una escritura en el fichero
+    QTextStream out(file);
+    out<< texto;
+
+    //Cerramos el fichero
+    file->close();
 
 }
 
@@ -70,11 +85,13 @@ QString document::getPath(){
 /// Método para limpiar un documento
 //////////////
 void document::clear(){
-    /*fileName.clear();
+    //Limpiamos todas las variables de nuestro documento
+    fileName.clear();
     path.clear();
-    delete(file);
+
+    file=NULL;
     isOpen=false;
-    textPanel->setText("");*/
+    textPanel->setText("");
 }
 
 ////////////////////////////////
@@ -89,7 +106,7 @@ QString document::extractName(QString path){
 
     //Recorremos nuestro path hasta encontrar un '/'
     //Una vez encontrado extraemos el nombre del fichero
-    for(pos=0;pos<path.size()&& !isFinish;pos++){
+    for(pos=path.size();pos>0 && !isFinish;pos--){
         if(path[pos]==QLatin1Char('/')){
             salida=path.right((path.size()-pos)-1);
             isFinish=true;

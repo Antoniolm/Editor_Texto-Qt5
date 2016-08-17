@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //Inicializamos diferentes variables y opciones
     this->setWindowTitle("Text Editor");
     existFile=false;//I need to review this variable because I think that I dont need it
-    nTab=1;
 
     //Inicializamos el estado de los botones close and save
     ui->actionSave->setEnabled(false);
@@ -58,7 +57,6 @@ void MainWindow::on_actionNew_File_triggered()
 
     //Creamos una nueva pestaña
     ui->groupQText->addTab(Text,"Untitled.txt");
-    nTab++;
     //Incrementamos el contador
     //MainWindow * window = new MainWindow();
     //Hacemos visible la ventana
@@ -84,15 +82,23 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionClose_file_triggered()
 {
     int currentPosition=ui->groupQText->currentIndex();
+    this->setWindowTitle("Text Editor");
+
+    //Comprobamos si es la ultima pestaña o no
+    //Ya que si es la ultima pestaña no se eliminara sino que se
+    //limpiara la información de ella
     if(ui->groupQText->count()!=1){
+
+        //eliminamos del QList el docs
         docs.removeAt(currentPosition);
+
+        //Eliminamos la pestaña
         ui->groupQText->removeTab(currentPosition);
     }
     else{
-        docs[currentPosition].clear();
-        this->setWindowTitle("Text Editor");
+        docs[currentPosition].clear(); //reInicializamos el documento
+        ui->groupQText->setTabText(currentPosition,"Untitled.txt"); //Ponemos el nombre por defecto del fichero
     }
-    nTab--;
 }
 
 
@@ -107,17 +113,20 @@ void MainWindow::on_actionOpen_File_triggered()
     //Lanzamos un QFileDialog y obtenemos el nombre del fichero a abrir
     QString fileName= QFileDialog::getOpenFileName(this,tr("Open File"),"C://","Text files (*.txt)");
 
-    int currentPosition=ui->groupQText->currentIndex();
-    docs[currentPosition].openDocument(fileName);
+    //Si hemos seleccionado un fichero
+    if(!fileName.isEmpty()){
+        int currentPosition=ui->groupQText->currentIndex();
+        docs[currentPosition].openDocument(fileName);
 
-    //Cambiamos el estado de los botones Close File y save
-    ui->actionSave->setEnabled(true);
+        //Cambiamos el estado de los botones Close File y save
+        ui->actionSave->setEnabled(true);
 
-    //Actualizamos el titulo de nuestra ventana con el nombre del txt
-    this->setWindowTitle("Text Editor - "+fileName);
+        //Actualizamos el titulo de nuestra ventana con el nombre del txt
+        this->setWindowTitle("Text Editor - "+fileName);
 
-    //Actualizamos el nombre de la pestaña con el nombre del fichero actual
-    ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
+        //Actualizamos el nombre de la pestaña con el nombre del fichero actual
+        ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
+    }
 }
 
 
@@ -128,21 +137,8 @@ void MainWindow::on_actionOpen_File_triggered()
 /////////////////////////////////////////
 void MainWindow::on_actionSave_triggered()
 {
-    //Si existe un fichero
-    /*if(existFile){
-        //Realizamos la apertura del fichero en modo escritura y con la bandera para reliazar Truncate
-        if(!file->open(QFile::WriteOnly| QFile::Truncate | QFile::Text))return;
-
-        //Escribimos en el fichero
-        QString texto=ui->mainText->toPlainText();
-
-        //Realizamos el canal de comunicación y realizamos una escritura en el fichero
-        QTextStream out(file);
-        out<< texto;
-
-        //Cerramos el fichero
-        file->close();
-    }*/
+    int currentPosition=ui->groupQText->currentIndex();
+    docs[currentPosition].saveDocument();
 }
 /////////////////////////////////
 /// \brief MainWindow::on_actionSaveAs_triggered

@@ -56,7 +56,6 @@ private:
     QLabel *state;
     QFile *file;
     QTabWidget *groupQText;
-    int nTab;
     QList<document> docs;
     bool existFile;
 

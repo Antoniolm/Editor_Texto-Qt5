@@ -19,7 +19,7 @@ class document
 {
 public:
     document(QTextEdit *);
-    void save();
+    void saveDocument();
     bool openDocument(QString name);
     bool isOpenFile();
     QString getName();
