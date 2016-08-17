@@ -22,11 +22,16 @@ public:
     void save();
     bool openDocument(QString name);
     bool isOpenFile();
+    QString getName();
+    QString getPath();
+    void clear();
 
 private:
+    QString extractName(QString path);
     QFile *file;
     QTextEdit *textPanel;
     QString fileName;
+    QString path;
     bool isOpen; //Boolean para saber si el el documento tiene un fichero activo
 
 };

@@ -38,13 +38,9 @@ private slots:
 
     void on_actionNew_File_triggered();
 
-    void on_actionExit_2_triggered();
-
     void on_actionClose_file_triggered();
 
     void on_actionExit_triggered();
-
-    void on_MainWindow_iconSizeChanged(const QSize &iconSize);
 
     void on_actionOpen_File_triggered();
 
@@ -60,6 +56,7 @@ private:
     QLabel *state;
     QFile *file;
     QTabWidget *groupQText;
+    int nTab;
     QList<document> docs;
     bool existFile;
 

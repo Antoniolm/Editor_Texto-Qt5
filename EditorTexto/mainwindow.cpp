@@ -15,11 +15,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+    //Inicializamos diferentes variables y opciones
     this->setWindowTitle("Text Editor");
     existFile=false;//I need to review this variable because I think that I dont need it
+    nTab=1;
 
     //Inicializamos el estado de los botones close and save
-    ui->actionClose_file->setEnabled(false);
     ui->actionSave->setEnabled(false);
 
     QTextEdit *Text=new QTextEdit();
@@ -57,7 +58,8 @@ void MainWindow::on_actionNew_File_triggered()
 
     //Creamos una nueva pestaña
     ui->groupQText->addTab(Text,"Untitled.txt");
-
+    nTab++;
+    //Incrementamos el contador
     //MainWindow * window = new MainWindow();
     //Hacemos visible la ventana
     //window->show();
@@ -81,18 +83,16 @@ void MainWindow::on_actionExit_triggered()
 /////////////////////////////////////////
 void MainWindow::on_actionClose_file_triggered()
 {
-    //Vaciamos nuestro mainText del contenido del fichero
-    /*ui->mainText->setText("");
-    existFile=false;
-
-    //Cambiamos el estado de los botones close file and save
-    ui->actionClose_file->setEnabled(false);
-    ui->actionSave->setEnabled(false);
-
-    //Actualizamos el titulo de la ventana
-    this->setWindowTitle("Text Editor");*/
-
-
+    int currentPosition=ui->groupQText->currentIndex();
+    if(ui->groupQText->count()!=1){
+        docs.removeAt(currentPosition);
+        ui->groupQText->removeTab(currentPosition);
+    }
+    else{
+        docs[currentPosition].clear();
+        this->setWindowTitle("Text Editor");
+    }
+    nTab--;
 }
 
 
@@ -111,12 +111,13 @@ void MainWindow::on_actionOpen_File_triggered()
     docs[currentPosition].openDocument(fileName);
 
     //Cambiamos el estado de los botones Close File y save
-    ui->actionClose_file->setEnabled(true);
     ui->actionSave->setEnabled(true);
 
     //Actualizamos el titulo de nuestra ventana con el nombre del txt
     this->setWindowTitle("Text Editor - "+fileName);
 
+    //Actualizamos el nombre de la pestaña con el nombre del fichero actual
+    ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
 }
 
 
@@ -184,13 +185,18 @@ void MainWindow::on_actionSaveAs_triggered()
 //////////////////////////////////////////////////
 void MainWindow::on_groupQText_currentChanged(int index)
 {
+    //Obtenemos la posición actual del Tab widget
     int currentPosition=ui->groupQText->currentIndex();
+
+    //Actualizamos el titulo de la ventana principal
+    this->setWindowTitle("Text Editor - "+docs[currentPosition].getPath());
+
+    //Actualizamos el estado de ciertos botones dependiendo
+    //de si el documento actual tiene o no fichero abierto
     if(docs[currentPosition].isOpenFile()){
-        ui->actionClose_file->setEnabled(true);
         ui->actionSave->setEnabled(true);
     }
     else{
-        ui->actionClose_file->setEnabled(false);
         ui->actionSave->setEnabled(false);
     }
 }
