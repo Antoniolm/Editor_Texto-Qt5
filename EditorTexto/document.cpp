@@ -64,10 +64,26 @@ bool document::openDocument(QString name){
 
 }
 
-/*bool documento::closeDocument(){
+bool document::createDocument(QString name){
+    //Obtenemos el nombre del fichero a partir del path
+    fileName=extractName(name);
+    path=name;
 
+    //Creamos un QFile con el nombre del fichero seleccionado
+    file=new QFile(name);
 
-}*/
+    //Realizamos la apertura del fichero en modo escriturae
+    if(!file->open(QFile::WriteOnly | QFile::Text))return false;
+
+    //Realizamos el canal de comunicación y realizamos una escritura en el fichero
+    QTextStream out(file);
+    out<< textPanel->toPlainText();
+
+    //Cerramos el fichero
+    file->close();
+
+    return true;
+}
 
 bool document::isOpenFile(){
     return isOpen;

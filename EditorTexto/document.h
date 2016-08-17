@@ -21,6 +21,7 @@ public:
     document(QTextEdit *);
     void saveDocument();
     bool openDocument(QString name);
+    bool createDocument(QString name);
     bool isOpenFile();
     QString getName();
     QString getPath();

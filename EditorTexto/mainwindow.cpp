@@ -147,37 +147,29 @@ void MainWindow::on_actionSave_triggered()
 ///////////////////////////////////
 void MainWindow::on_actionSaveAs_triggered()
 {
-    /*QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                                 "C://",
                                                 QFileDialog::ShowDirsOnly
                                                 | QFileDialog::DontResolveSymlinks);
 
-    //Creamos nuestro nuevo fichero
-    file=new QFile(dir+"/File.txt");
+    //Obtenemos el tab actual
+    int currentPosition=ui->groupQText->currentIndex();
+    //Creamos el nuevo documento
+    docs[currentPosition].createDocument(dir+"/File.txt");
 
-    //Realizamos la apertura del fichero en modo escriturae
-    if(!file->open(QFile::WriteOnly | QFile::Text))return;
-
-    //Realizamos el canal de comunicación y realizamos una escritura en el fichero
-    QTextStream out(file);
-    out<< ui->mainText->toPlainText();
-
-    //Cerramos el fichero
-    file->close();
-
-    //Cambiamos el estado de los botones Close File y save
-    ui->actionClose_file->setEnabled(true);
+    //Cambiamos el estado de los botones save
     ui->actionSave->setEnabled(true);
 
-    //Actualizamos el titulo de nuestra ventana con el nombre del txt
-    this->setWindowTitle("Text Editor - "+dir+"/File.txt");*/
+    //Actualizamos el titulo de nuestra ventana y de nuestra pestaña con el nombre del txt
+    this->setWindowTitle("Text Editor - " +docs[currentPosition].getPath());
+    ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
 }
 
 /////////////////////////////////////////////////
 /// \brief MainWindow::on_groupQText_currentChanged
 /// \param index
-///
-///
+/// Método activado cuando realizamos un cambio de pestaña en el elemento groupQText(QTabWdiget)
+/// Realizamos una actualización según el contenido de la pestaña seleccionada
 //////////////////////////////////////////////////
 void MainWindow::on_groupQText_currentChanged(int index)
 {
