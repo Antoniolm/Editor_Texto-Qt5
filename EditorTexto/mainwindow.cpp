@@ -6,7 +6,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <namefiledialog.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
     document newDoc(Text);
     docs.append(newDoc);
     ui->groupQText->addTab(Text,"Untitled.txt");
-    //ui->groupQText->currentIndex();
 
 }
 
@@ -151,6 +150,8 @@ void MainWindow::on_actionSaveAs_triggered()
                                                 "C://",
                                                 QFileDialog::ShowDirsOnly
                                                 | QFileDialog::DontResolveSymlinks);
+    NameFileDialog *newdialog=new NameFileDialog();
+    newdialog->show();
 
     //Obtenemos el tab actual
     int currentPosition=ui->groupQText->currentIndex();

@@ -14,9 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    document.cpp
+    document.cpp \
+    namefiledialog.cpp
 
 HEADERS  += mainwindow.h \
-    document.h
+    document.h \
+    namefiledialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    namefiledialog.ui
