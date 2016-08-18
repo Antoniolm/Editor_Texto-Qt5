@@ -16,11 +16,18 @@ namespace Ui {
 class Dialog;
 }
 
+//Enum que nos permite realizar diferente usos en
+//nuestro namefileDialog.
+enum dialogFlag{
+    newNameFile,//Para la opcion Save as
+    search //Para la opcion search
+};
+
 class NameFileDialog : public QDialog
 {
     Q_OBJECT
 public:
-    NameFileDialog(document *docu,QString nameWindow,QString textLabel);
+    NameFileDialog(document *docu,QString ,QString ,dialogFlag );
     ~NameFileDialog();
 
 signals:
@@ -33,6 +40,7 @@ private slots:
 private:
     Ui::Dialog *ui;
     document *doc;
+    dialogFlag flag;
 
 };
 

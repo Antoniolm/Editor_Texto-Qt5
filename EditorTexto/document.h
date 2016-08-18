@@ -23,6 +23,7 @@ public:
     bool openDocument(QString name);
     bool createDocument(QString name);
     bool isOpenFile();
+    void search();
     QString getName();
     QString getPath();
     void setPath(QString);

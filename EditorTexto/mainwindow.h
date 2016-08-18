@@ -50,6 +50,8 @@ private slots:
 
     void on_groupQText_currentChanged(int index);
 
+    void on_actionSearch_triggered();
+
 private:
     Ui::MainWindow *ui;
     QLabel *state;

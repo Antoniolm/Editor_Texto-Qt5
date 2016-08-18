@@ -22,9 +22,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //Inicializamos el estado de los botones close and save
     ui->actionSave->setEnabled(false);
 
+    //Creamos un nuevo document y lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
     document newDoc(Text);
     docs.append(newDoc);
+
+    //Cambiamos el titulo de la pestaña
     ui->groupQText->addTab(Text,"Untitled.txt");
 
 }
@@ -154,7 +157,7 @@ void MainWindow::on_actionSaveAs_triggered()
                                                 "C://",
                                                 QFileDialog::ShowDirsOnly
                                                 | QFileDialog::DontResolveSymlinks);
-    NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"));
+    NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"),dialogFlag::newNameFile);
     newdialog->exec();
 
     //Creamos el nuevo documento
@@ -190,4 +193,19 @@ void MainWindow::on_groupQText_currentChanged(int index)
     else{
         ui->actionSave->setEnabled(false);
     }
+}
+
+///////////////////////////
+/// \brief MainWindow::on_actionSearch_triggered
+/// Método activado cuando realizamos una busqueda
+/// Busqueda de un elemento en el documento visible actualmente
+///////////////////////////
+void MainWindow::on_actionSearch_triggered()
+{
+    //Obtenemos la posición actual del Tab widget
+    int currentPosition=ui->groupQText->currentIndex();
+
+    //Lanzamos nuestro nameFileDialog
+    NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Search"),tr("Parameter of search"),dialogFlag::search);
+    newdialog->exec();
 }
