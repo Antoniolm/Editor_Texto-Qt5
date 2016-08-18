@@ -94,12 +94,13 @@ bool document::createDocument(QString name){
 /// Método que busca un elemento en nuestro documento
 /// ///////////////////////////////
 void document::search(QString elemento){
-    QString nuevoElemento("<html><b>"+elemento+"</b></html>");
+    QString nuevoElemento("<b>"+elemento+"</b>");
 
     QString texto=textPanel->toPlainText();
-    //Realizamos el reemplazo
-    textPanel->setHtml(texto.replace(elemento,nuevoElemento));
 
+    //Realizamos el reemplazo
+    texto.replace(elemento,nuevoElemento);
+    textPanel->setHtml(texto.replace("\n","<br>"));
 }
 
 bool document::isOpenFile(){
