@@ -52,9 +52,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QTextEdit *mainText;
     QLabel *state;
-    QFile *file;
     QTabWidget *groupQText;
     QList<document> docs;
     bool existFile;

@@ -25,6 +25,9 @@ public:
     bool isOpenFile();
     QString getName();
     QString getPath();
+    void setPath(QString);
+    void setName(QString);
+
     void clear();
 
 private:

@@ -64,13 +64,17 @@ bool document::openDocument(QString name){
 
 }
 
+/////////////////
+/// \brief document::createDocument
+/// Método para un nuevo documento, el cual tendra el contenido del
+/// textPanel del objeto que lo llama
+/// ///////////////////////////////
 bool document::createDocument(QString name){
     //Obtenemos el nombre del fichero a partir del path
-    fileName=extractName(name);
     path=name;
 
     //Creamos un QFile con el nombre del fichero seleccionado
-    file=new QFile(name);
+    file=new QFile(name+"/"+fileName);
 
     //Realizamos la apertura del fichero en modo escriturae
     if(!file->open(QFile::WriteOnly | QFile::Text))return false;
@@ -96,6 +100,13 @@ QString document::getName(){
 QString document::getPath(){
     return path;
 }
+void document::setPath(QString entrada){
+    path=entrada;
+}
+void document::setName(QString entrada){
+    fileName=entrada;
+}
+
 /////////////////////////
 /// \brief document::clear
 /// Método para limpiar un documento

@@ -9,6 +9,8 @@
 
 #include <QWidget>
 #include <QDialog>
+#include <QLineEdit>
+#include <document.h>
 
 namespace Ui {
 class Dialog;
@@ -18,7 +20,7 @@ class NameFileDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit NameFileDialog(QDialog *parent = 0);
+    NameFileDialog(document *docu,QString nameWindow,QString textLabel);
     ~NameFileDialog();
 
 signals:
@@ -30,6 +32,8 @@ private slots:
 
 private:
     Ui::Dialog *ui;
+    document *doc;
+
 };
 
 #endif // NAMEFILEDIALOG_H

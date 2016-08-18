@@ -146,17 +146,19 @@ void MainWindow::on_actionSave_triggered()
 ///////////////////////////////////
 void MainWindow::on_actionSaveAs_triggered()
 {
+    //Obtenemos el tab actual
+    int currentPosition=ui->groupQText->currentIndex();
+
+    //Lanzamos la intefaz de selección de directorio
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                                 "C://",
                                                 QFileDialog::ShowDirsOnly
                                                 | QFileDialog::DontResolveSymlinks);
-    NameFileDialog *newdialog=new NameFileDialog();
-    newdialog->show();
+    NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"));
+    newdialog->exec();
 
-    //Obtenemos el tab actual
-    int currentPosition=ui->groupQText->currentIndex();
     //Creamos el nuevo documento
-    docs[currentPosition].createDocument(dir+"/File.txt");
+    docs[currentPosition].createDocument(dir);
 
     //Cambiamos el estado de los botones save
     ui->actionSave->setEnabled(true);
