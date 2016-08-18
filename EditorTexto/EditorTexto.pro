@@ -22,4 +22,5 @@ HEADERS  += mainwindow.h \
     namefiledialog.h
 
 FORMS    += mainwindow.ui \
-    namefiledialog.ui
+    namefiledialog.ui \
+    replacedialog.ui
