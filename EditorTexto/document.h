@@ -22,8 +22,8 @@ public:
     void saveDocument();
     bool openDocument(QString name);
     bool createDocument(QString name);
+    void search(QString);
     bool isOpenFile();
-    void search();
     QString getName();
     QString getPath();
     void setPath(QString);

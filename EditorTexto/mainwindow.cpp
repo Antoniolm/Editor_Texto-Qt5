@@ -208,4 +208,6 @@ void MainWindow::on_actionSearch_triggered()
     //Lanzamos nuestro nameFileDialog
     NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Search"),tr("Parameter of search"),dialogFlag::search);
     newdialog->exec();
+
+
 }

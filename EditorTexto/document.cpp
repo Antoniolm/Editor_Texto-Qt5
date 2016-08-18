@@ -7,7 +7,6 @@
 #include "document.h"
 
 
-
 document::document(QTextEdit *panel){
     textPanel=panel;
     isOpen=false;
@@ -89,9 +88,24 @@ bool document::createDocument(QString name){
     return true;
 }
 
+///////////////////////////////////
+/// \brief document::search
+/// \param elemento Elemento a buscar
+/// Método que busca un elemento en nuestro documento
+/// ///////////////////////////////
+void document::search(QString elemento){
+    QString nuevoElemento("<html><b>"+elemento+"</b></html>");
+
+    QString texto=textPanel->toPlainText();
+    //Realizamos el reemplazo
+    textPanel->setHtml(texto.replace(elemento,nuevoElemento));
+
+}
+
 bool document::isOpenFile(){
     return isOpen;
 }
+
 
 QString document::getName(){
     return fileName;

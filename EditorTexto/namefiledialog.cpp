@@ -30,9 +30,12 @@ void NameFileDialog::on_pushButton_clicked()
     switch(flag){
     case dialogFlag::newNameFile: //Caso-> opcion Save AS
         doc->setName(ui->textEdit->text()+".txt");
-        close();
         break;
     case dialogFlag::search: //Caso -> opción search
+        doc->search(ui->textEdit->text());
         break;
     }
+
+    //Cerramos la interfaz
+    close();
 }
