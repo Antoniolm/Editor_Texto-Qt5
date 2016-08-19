@@ -7,6 +7,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <namefiledialog.h>
+#include <replacedialog.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -215,4 +216,19 @@ void MainWindow::on_actionSearch_triggered()
     newdialog->exec();
 
 
+}
+
+///////////////////////////
+/// \brief MainWindow::on_actionReplace_triggered
+/// Método activado cuando pulsamos la opción replace
+/// Reemplazo de un elemento por otro en el documento
+/// que esta visible actualmente
+//////////////////////////////////////
+void MainWindow::on_actionReplace_triggered()
+{
+    //Obtenemos la posición actual del Tab widget
+    int currentPosition=ui->groupQText->currentIndex();
+
+    ReplaceDialog *replace=new ReplaceDialog(&docs[currentPosition]);
+    replace->exec();
 }

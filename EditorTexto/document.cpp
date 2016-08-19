@@ -107,6 +107,23 @@ void document::search(QString elemento){
     isSearch=true;
 }
 
+///////////////////////////////
+/// \brief document::replace
+/// Método para reemplazar un conjunto de caracteres por otro
+/// en nuestro documento
+/////////////////////////
+void document::replace(QString oldElement, QString newElement){
+    //Obtenemos el contenido del textPanel
+    QString texto=textPanel->toPlainText();
+
+    //Reemplazamos los elementos
+    texto.replace(oldElement,newElement);
+
+    //Actualizamos el contenido del textPanel
+    textPanel->setText(texto);
+
+}
+
 bool document::isOpenFile(){
     return isOpen;
 }

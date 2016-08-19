@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     document.cpp \
-    namefiledialog.cpp
+    namefiledialog.cpp \
+    replacedialog.cpp
 
 HEADERS  += mainwindow.h \
     document.h \
-    namefiledialog.h
+    namefiledialog.h \
+    replacedialog.h
 
 FORMS    += mainwindow.ui \
     namefiledialog.ui \
