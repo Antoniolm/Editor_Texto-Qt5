@@ -10,6 +10,7 @@
 document::document(QTextEdit *panel){
     textPanel=panel;
     isOpen=false;
+    isSearch=false;
 }
 
 ///////////////////////////////
@@ -101,13 +102,18 @@ void document::search(QString elemento){
     //Realizamos el reemplazo
     texto.replace(elemento,nuevoElemento);
     textPanel->setHtml(texto.replace("\n","<br>"));
+
+    //Actualizamos nuestro bool de estado
+    isSearch=true;
 }
 
 bool document::isOpenFile(){
     return isOpen;
 }
 
-
+bool document::isSearchFile(){
+    return isSearch;
+}
 QString document::getName(){
     return fileName;
 }
@@ -120,6 +126,12 @@ void document::setPath(QString entrada){
 }
 void document::setName(QString entrada){
     fileName=entrada;
+}
+
+void document::desactiveSearch(){
+    //Cambiamos el texto de html a texto Plano
+    textPanel->setText(textPanel->toPlainText());
+    isSearch=false;
 }
 
 /////////////////////////

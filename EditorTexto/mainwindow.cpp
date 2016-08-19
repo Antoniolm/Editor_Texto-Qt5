@@ -193,6 +193,11 @@ void MainWindow::on_groupQText_currentChanged(int index)
     else{
         ui->actionSave->setEnabled(false);
     }
+
+    //Actualizamos el estado para desactivar la busqueda si se realiza un cambio de tab
+    if(docs[currentPosition].isSearchFile()){
+        docs[currentPosition].desactiveSearch();
+    }
 }
 
 ///////////////////////////

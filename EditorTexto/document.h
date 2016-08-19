@@ -24,10 +24,12 @@ public:
     bool createDocument(QString name);
     void search(QString);
     bool isOpenFile();
+    bool isSearchFile();
     QString getName();
     QString getPath();
     void setPath(QString);
     void setName(QString);
+    void desactiveSearch();
 
     void clear();
 
@@ -38,6 +40,7 @@ private:
     QString fileName;
     QString path;
     bool isOpen; //Boolean para saber si el el documento tiene un fichero activo
+    bool isSearch; //Boolean para saber si se tiene una busqueda activa
 
 };
 
