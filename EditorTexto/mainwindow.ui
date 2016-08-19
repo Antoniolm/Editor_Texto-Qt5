@@ -60,9 +60,9 @@
    </widget>
    <widget class="QMenu" name="menuHelp_2">
     <property name="title">
-     <string>Help</string>
+     <string>About..</string>
     </property>
-    <addaction name="actionContext_help_2"/>
+    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -114,11 +114,6 @@
     <string>Replace</string>
    </property>
   </action>
-  <action name="actionContext_help">
-   <property name="text">
-    <string>Context help</string>
-   </property>
-  </action>
   <action name="actionContext_help_2">
    <property name="text">
     <string>Context Help</string>
@@ -127,6 +122,11 @@
   <action name="actionState_toolbar">
    <property name="text">
     <string>State Toolbar</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About..</string>
    </property>
   </action>
  </widget>

@@ -54,6 +54,8 @@ private slots:
 
     void on_actionReplace_triggered();
 
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
     QLabel *state;

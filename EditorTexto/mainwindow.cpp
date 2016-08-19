@@ -8,6 +8,7 @@
 #include "ui_mainwindow.h"
 #include <namefiledialog.h>
 #include <replacedialog.h>
+#include <informationdialog.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -206,7 +207,7 @@ void MainWindow::on_groupQText_currentChanged(int index)
     }
 
     //Actualizamos el estado de el nº de filas y columnas
-    ui->state->setText("Rows - 0 colums - 0");
+    ui->state->setText("Rows -  colums - ");
 }
 
 ///////////////////////////
@@ -240,4 +241,18 @@ void MainWindow::on_actionReplace_triggered()
     //Lanzamos la interfaz para obtener la información a reemplazar
     ReplaceDialog *replace=new ReplaceDialog(&docs[currentPosition]);
     replace->exec();
+}
+
+///////////////////////////////////
+/// \brief MainWindow::on_actionAbout_triggered
+/// Muestra la version de la aplicación
+/////////////////////////////////
+void MainWindow::on_actionAbout_triggered()
+{
+    QString info("Version 1.0.0\n\n "
+                 "GNU GENERAL PUBLIC LICENSE\n"
+                 " Version 2, June 1991\n"
+                 " Copyright (C) 2016");
+    InformationDialog *information=new InformationDialog(tr("Version"),info);
+    information->show();
 }
