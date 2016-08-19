@@ -34,7 +34,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_mainText_cursorPositionChanged();
+    void on_cursorPositionChanged();
 
     void on_actionNew_File_triggered();
 

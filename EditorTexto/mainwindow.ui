@@ -6,47 +6,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>537</width>
-    <height>421</height>
+    <width>641</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="state">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>340</y>
-      <width>211</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QTabWidget" name="groupQText">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>541</width>
-      <height>341</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>-1</number>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="groupQText">
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="state">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>537</width>
+     <width>641</width>
      <height>26</height>
     </rect>
    </property>
@@ -68,12 +58,6 @@
     <addaction name="actionSearch"/>
     <addaction name="actionReplace"/>
    </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>View</string>
-    </property>
-    <addaction name="actionState_toolbar"/>
-   </widget>
    <widget class="QMenu" name="menuHelp_2">
     <property name="title">
      <string>Help</string>
@@ -82,7 +66,6 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
-   <addaction name="menuHelp"/>
    <addaction name="menuHelp_2"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

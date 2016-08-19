@@ -138,6 +138,9 @@ QString document::getName(){
 QString document::getPath(){
     return path;
 }
+QTextEdit* document::getTextPanel(){
+    return textPanel;
+}
 void document::setPath(QString entrada){
     path=entrada;
 }

@@ -28,6 +28,7 @@ public:
     bool isSearchFile();
     QString getName();
     QString getPath();
+    QTextEdit* getTextPanel();
     void setPath(QString);
     void setName(QString);
     void desactiveSearch();

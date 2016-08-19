@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Creamos un nuevo document y lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
+    connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
     document newDoc(Text);
     docs.append(newDoc);
 
@@ -38,12 +39,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_mainText_cursorPositionChanged()
+///////////////////////////
+/// \brief MainWindow::on_cursorPositionChanged
+/// Método que se activara cuando se cambie de posición
+/// el cursor dentro del QTextEdit y nos mostrara por pantalla
+/// la fila y columna en la que esta posicionado el cursor
+//////////////////////////
+void MainWindow::on_cursorPositionChanged()
 {
+    int currentPosition=ui->groupQText->currentIndex();
     //Obtenemos el cursor de nuestro QTextEdit
-    //QTextCursor cursor = ui->mainText->textCursor();
+    QTextCursor cursor = (docs[currentPosition].getTextPanel())->textCursor();
     //Actualizamos la posición del cursor
-    //ui->state->setText("Rows - "+QString::number(cursor.blockNumber())+" colums - "+ QString::number(cursor.positionInBlock()));
+    ui->state->setText("Rows - "+QString::number(cursor.blockNumber())+" colums - "+ QString::number(cursor.positionInBlock()));
 }
 
 ////////////////////////////////////////////////
@@ -55,15 +63,12 @@ void MainWindow::on_actionNew_File_triggered()
 {
     //Creamos un nuevo document and lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
+    connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
     document newDoc(Text);
     docs.append(newDoc);
 
     //Creamos una nueva pestaña
     ui->groupQText->addTab(Text,"Untitled.txt");
-    //Incrementamos el contador
-    //MainWindow * window = new MainWindow();
-    //Hacemos visible la ventana
-    //window->show();
 }
 
 //////////////////////////////////////////////
@@ -168,7 +173,7 @@ void MainWindow::on_actionSaveAs_triggered()
     ui->actionSave->setEnabled(true);
 
     //Actualizamos el titulo de nuestra ventana y de nuestra pestaña con el nombre del txt
-    this->setWindowTitle("Text Editor - " +docs[currentPosition].getPath());
+    this->setWindowTitle("Text Editor - " +docs[currentPosition].getPath()+"/"+docs[currentPosition].getName());
     ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
 }
 
@@ -199,6 +204,9 @@ void MainWindow::on_groupQText_currentChanged(int index)
     if(docs[currentPosition].isSearchFile()){
         docs[currentPosition].desactiveSearch();
     }
+
+    //Actualizamos el estado de el nº de filas y columnas
+    ui->state->setText("Rows - 0 colums - 0");
 }
 
 ///////////////////////////
@@ -229,6 +237,7 @@ void MainWindow::on_actionReplace_triggered()
     //Obtenemos la posición actual del Tab widget
     int currentPosition=ui->groupQText->currentIndex();
 
+    //Lanzamos la interfaz para obtener la información a reemplazar
     ReplaceDialog *replace=new ReplaceDialog(&docs[currentPosition]);
     replace->exec();
 }
