@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Creamos un nuevo document y lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
+    Text->setFontPointSize(9);
     document newDoc(Text);
     docs.append(newDoc);
 
@@ -65,6 +66,8 @@ void MainWindow::on_actionNew_File_triggered()
     //Creamos un nuevo document and lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
+    Text->setFontPointSize(9);
+
     document newDoc(Text);
     docs.append(newDoc);
 
@@ -172,6 +175,7 @@ void MainWindow::on_actionSaveAs_triggered()
         //Obtenemos el nuevo nombre y creamos el documento con dicho nombre
         NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"),dialogFlag::newNameFile);
         newdialog->exec();
+
         if(docs[currentPosition].getName()!=".txt"){
             //Introducimos nuestro path en el documento
             docs[currentPosition].setPath(dir);

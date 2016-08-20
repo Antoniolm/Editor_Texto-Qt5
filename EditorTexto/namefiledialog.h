@@ -30,12 +30,14 @@ public:
     NameFileDialog(document *docu,QString ,QString ,dialogFlag );
     ~NameFileDialog();
 
+
 signals:
 
 public slots:
 
 private slots:
     void on_pushButton_clicked();
+    void onClose();
 
 private:
     Ui::Dialog *ui;

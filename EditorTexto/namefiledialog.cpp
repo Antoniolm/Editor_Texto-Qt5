@@ -15,7 +15,7 @@ NameFileDialog::NameFileDialog(document *docu,QString nameWindow,QString textLab
    this->setWindowTitle(nameWindow);
    ui->label->setText(textLabel);
 
-   connect(this,SIGNAL(rejected()),this,SLOT(on_pushButton_clicked()));
+   connect(this,SIGNAL(rejected()),this,SLOT(onClose()));
 }
 
 NameFileDialog::~NameFileDialog(){
@@ -41,4 +41,20 @@ void NameFileDialog::on_pushButton_clicked()
 
     //Cerramos la interfaz
     close();
+}
+
+////////////////////////////////
+/// \brief NameFileDialog::onClose
+/// Método llamado cuando se cierra la pestaña
+////////////////////////////////
+void NameFileDialog::onClose(){
+    QString name(".txt");
+    switch(flag){
+        case dialogFlag::newNameFile: //Caso-> opcion Save AS
+            doc->setName(name);
+        break;
+
+        default:
+        break;
+   }
 }
