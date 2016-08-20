@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QTextEdit *Text=new QTextEdit();
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
     Text->setFontPointSize(9);
+
     document newDoc(Text);
     docs.append(newDoc);
 
