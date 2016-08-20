@@ -159,23 +159,37 @@ void MainWindow::on_actionSaveAs_triggered()
     //Obtenemos el tab actual
     int currentPosition=ui->groupQText->currentIndex();
 
+    //Obtenemos el nombre actual(si hay)
+    QString oldName=docs[currentPosition].getName();
+
     //Lanzamos la intefaz de selección de directorio
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                                 "C://",
                                                 QFileDialog::ShowDirsOnly
                                                 | QFileDialog::DontResolveSymlinks);
-    NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"),dialogFlag::newNameFile);
-    newdialog->exec();
+    //Si no esta vacio
+    if(!dir.isEmpty()){
+        //Obtenemos el nuevo nombre y creamos el documento con dicho nombre
+        NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"),dialogFlag::newNameFile);
+        newdialog->exec();
+        if(docs[currentPosition].getName()!=".txt"){
+            //Introducimos nuestro path en el documento
+            docs[currentPosition].setPath(dir);
 
-    //Creamos el nuevo documento
-    docs[currentPosition].createDocument(dir);
+            //Creamos el nuevo documento
+            docs[currentPosition].createDocument();
+            //Cambiamos el estado de los botones save
+            ui->actionSave->setEnabled(true);
 
-    //Cambiamos el estado de los botones save
-    ui->actionSave->setEnabled(true);
+            //Actualizamos el titulo de nuestra ventana y de nuestra pestaña con el nombre del txt
+            this->setWindowTitle("Text Editor - " +docs[currentPosition].getPath()+"/"+docs[currentPosition].getName());
+            ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
+       }
+       else{//Restauramos el nombre del fichero
+            docs[currentPosition].setName(oldName);
+        }
 
-    //Actualizamos el titulo de nuestra ventana y de nuestra pestaña con el nombre del txt
-    this->setWindowTitle("Text Editor - " +docs[currentPosition].getPath()+"/"+docs[currentPosition].getName());
-    ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
+    }
 }
 
 /////////////////////////////////////////////////

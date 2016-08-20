@@ -69,12 +69,9 @@ bool document::openDocument(QString name){
 /// Método para un nuevo documento, el cual tendra el contenido del
 /// textPanel del objeto que lo llama
 /// ///////////////////////////////
-bool document::createDocument(QString name){
-    //Obtenemos el nombre del fichero a partir del path
-    path=name;
-
+bool document::createDocument(){
     //Creamos un QFile con el nombre del fichero seleccionado
-    file=new QFile(name+"/"+fileName);
+    file=new QFile(path+"/"+fileName);
 
     //Realizamos la apertura del fichero en modo escriturae
     if(!file->open(QFile::WriteOnly | QFile::Text))return false;

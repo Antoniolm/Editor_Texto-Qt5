@@ -14,6 +14,8 @@ NameFileDialog::NameFileDialog(document *docu,QString nameWindow,QString textLab
    ui->setupUi(this);
    this->setWindowTitle(nameWindow);
    ui->label->setText(textLabel);
+
+   connect(this,SIGNAL(rejected()),this,SLOT(on_pushButton_clicked()));
 }
 
 NameFileDialog::~NameFileDialog(){
@@ -29,6 +31,7 @@ void NameFileDialog::on_pushButton_clicked()
 {
     switch(flag){
     case dialogFlag::newNameFile: //Caso-> opcion Save AS
+        //Obtenemos el nombre
         doc->setName(ui->textEdit->text()+".txt");
         break;
     case dialogFlag::search: //Caso -> opción search

@@ -21,7 +21,7 @@ public:
     document(QTextEdit *);
     void saveDocument();
     bool openDocument(QString name);
-    bool createDocument(QString name);
+    bool createDocument();
     void search(QString);
     void replace(QString,QString);
     bool isOpenFile();
