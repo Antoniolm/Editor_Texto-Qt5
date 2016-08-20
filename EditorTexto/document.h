@@ -24,6 +24,7 @@ public:
     bool createDocument();
     void search(QString);
     void replace(QString,QString);
+    void changeFont(QFont font);
     bool isOpenFile();
     bool isSearchFile();
     QString getName();

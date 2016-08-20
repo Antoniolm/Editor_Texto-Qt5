@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>FontDialog</class>
+ <widget class="QDialog" name="FontDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="familyfont">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -33,7 +33,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Style:</string>
+    <string>Family:</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -49,7 +49,7 @@
     <string>Size:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="sizefont">
    <property name="geometry">
     <rect>
      <x>250</x>
@@ -65,7 +65,7 @@
      <x>350</x>
      <y>30</y>
      <width>93</width>
-     <height>28</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">

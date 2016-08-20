@@ -121,6 +121,15 @@ void document::replace(QString oldElement, QString newElement){
 
 }
 
+//////////////////////////
+/// \brief document::changeFont
+/// Cambiamos la fuente del textPanel
+/////////////////////////
+void document::changeFont(QFont font){
+    //textPanel->setFont(font);
+    textPanel->setFontPointSize(30);
+    textPanel->repaint();
+}
 bool document::isOpenFile(){
     return isOpen;
 }

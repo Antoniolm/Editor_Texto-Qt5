@@ -32,6 +32,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void fontChanged(QFont font);
 
 private slots:
     void on_cursorPositionChanged();
@@ -55,6 +56,8 @@ private slots:
     void on_actionReplace_triggered();
 
     void on_actionAbout_triggered();
+
+    void on_actionVisualization_Format_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -9,6 +9,7 @@
 #include <namefiledialog.h>
 #include <replacedialog.h>
 #include <informationdialog.h>
+#include <fontdialog.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -42,6 +43,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//////////////////////////////////
+/// \brief MainWindow::fontChanged
+/// Método para configurar la fuente de visualización
+///////////////////////////////////
+void MainWindow::fontChanged(QFont font){
+
+    for(int i=0;i<docs.size();i++){
+        docs[i].changeFont(font);
+    }
+}
 ///////////////////////////
 /// \brief MainWindow::on_cursorPositionChanged
 /// Método que se activara cuando se cambie de posición
@@ -274,4 +285,15 @@ void MainWindow::on_actionAbout_triggered()
                  " Copyright (C) 2016");
     InformationDialog *information=new InformationDialog(tr("Version"),info);
     information->show();
+}
+
+////////////////////////////////////////
+/// \brief MainWindow::on_actionVisualization_Format_triggered
+/// Método activado cuando pulsamos la opción de Visualization format
+/// Configuramos la fuente de todos los documentos
+///////////////////////////////////////
+void MainWindow::on_actionVisualization_Format_triggered()
+{
+    FontDialog *fontdialog=new FontDialog(this);
+    fontdialog->show();
 }
