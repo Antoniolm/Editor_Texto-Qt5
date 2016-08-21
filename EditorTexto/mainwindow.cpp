@@ -36,6 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //Cambiamos el titulo de la pestaña
     ui->groupQText->addTab(Text,"Untitled.txt");
 
+    //Inicializamos el formato
+    family="";
+    sizeText=0;
 }
 
 MainWindow::~MainWindow()
@@ -47,10 +50,13 @@ MainWindow::~MainWindow()
 /// \brief MainWindow::fontChanged
 /// Método para configurar la fuente de visualización
 ///////////////////////////////////
-void MainWindow::fontChanged(QFont font){
+void MainWindow::fontChanged(QString fam,int size){
+    family=fam;
+    sizeText=size;
 
-    for(int i=0;i<docs.size();i++){
-        docs[i].changeFont(font);
+    //Actualizamos el formato de texto en todos los documentos abiertos
+    foreach(document doc,docs){
+        doc.changeFont(family,size);
     }
 }
 ///////////////////////////
@@ -78,8 +84,14 @@ void MainWindow::on_actionNew_File_triggered()
     //Creamos un nuevo document and lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
-    Text->setFontPointSize(9);
+    //Comprobamos si se ha hecho un cambio de estilo y sino se pone el font por defecto
+    if(sizeText==0) Text->setFontPointSize(9);
+    else {
+        Text->setFontFamily(family);
+        Text->setFontPointSize(sizeText);
+    }
 
+    //Creamos el nuevo doc y le añadimos el QTextEdit ya configurado
     document newDoc(Text);
     docs.append(newDoc);
 

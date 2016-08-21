@@ -32,7 +32,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void fontChanged(QFont font);
+    void fontChanged(QString,int);
 
 private slots:
     void on_cursorPositionChanged();
@@ -65,6 +65,8 @@ private:
     QTabWidget *groupQText;
     QList<document> docs;
     bool existFile;
+    QString family;
+    int sizeText;
 
 };
 
