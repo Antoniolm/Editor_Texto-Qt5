@@ -25,8 +25,10 @@ public:
     void search(QString);
     void replace(QString,QString);
     void changeFont(QString,int);
+    void changeSizeFont(int);
     bool isOpenFile();
     bool isSearchFile();
+    bool isEmpty();
     QString getName();
     QString getPath();
     QTextEdit* getTextPanel();

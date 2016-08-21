@@ -128,28 +128,84 @@ void document::replace(QString oldElement, QString newElement){
 void document::changeFont(QString family,int size){
     textPanel->setFontFamily(family);
     textPanel->setFontPointSize(size);
-    textPanel->setText(textPanel->toPlainText());
+    if(!textPanel->toPlainText().isEmpty())
+        textPanel->setText(textPanel->toPlainText());
 }
+
+///////////////////////////////
+/// \brief document::changeSizeFont
+/// Cambiamos el tamaño de letra de textpanel
+//////////////////////////////
+void document::changeSizeFont(int size){
+    textPanel->setFontPointSize(size);
+    if(!textPanel->toPlainText().isEmpty())
+        textPanel->setText(textPanel->toPlainText());
+}
+
+///
+/// \brief document::isOpenFile
+/// \return
+///
 bool document::isOpenFile(){
     return isOpen;
 }
 
+///
+/// \brief document::isSearchFile
+/// \return
+///
 bool document::isSearchFile(){
     return isSearch;
 }
+
+///
+/// \brief document::isEmpty
+/// \return
+///
+bool document::isEmpty(){
+    bool salida=false;
+    if(textPanel->toPlainText().isEmpty()){
+        salida=true;
+    }
+    return salida;
+}
+
+///
+/// \brief document::getName
+/// \return
+///
 QString document::getName(){
     return fileName;
 }
 
+///
+/// \brief document::getPath
+/// \return
+///
 QString document::getPath(){
     return path;
 }
+
+///
+/// \brief document::getTextPanel
+/// \return
+///
 QTextEdit* document::getTextPanel(){
     return textPanel;
 }
+
+///
+/// \brief document::setPath
+/// \param entrada
+///
 void document::setPath(QString entrada){
     path=entrada;
 }
+
+///
+/// \brief document::setName
+/// \param entrada
+///
 void document::setName(QString entrada){
     fileName=entrada;
 }

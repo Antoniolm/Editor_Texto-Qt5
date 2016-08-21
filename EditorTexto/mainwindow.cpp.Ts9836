@@ -329,6 +329,6 @@ void MainWindow::on_CharFormatChanged(){
     }
     //Si aun tenemos el formato por defecto
     if(docs[currentPosition].isEmpty() && sizeText==0){
-       docs[currentPosition].changeSizeFont(9);
+       docs[currentPosition].changeSizeFont(sizeText);
     }
 }

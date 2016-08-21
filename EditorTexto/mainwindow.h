@@ -59,6 +59,8 @@ private slots:
 
     void on_actionVisualization_Format_triggered();
 
+    void on_CharFormatChanged();
+
 private:
     Ui::MainWindow *ui;
     QLabel *state;
