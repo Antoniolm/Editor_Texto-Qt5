@@ -332,3 +332,12 @@ void MainWindow::on_CharFormatChanged(){
        docs[currentPosition].changeSizeFont(9);
     }
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].changeBold(true);
+
+
+}

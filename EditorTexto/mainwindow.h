@@ -61,6 +61,8 @@ private slots:
 
     void on_CharFormatChanged();
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLabel *state;

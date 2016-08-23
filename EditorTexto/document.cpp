@@ -6,6 +6,7 @@
 
 #include "document.h"
 #include <QtPrintSupport/QPrinter>
+#include <QDebug>
 
 document::document(QTextEdit *panel){
     textPanel=panel;
@@ -154,6 +155,23 @@ void document::changeSizeFont(int size){
         textPanel->setText(textPanel->toPlainText());
 }
 
+///
+/// \brief document::changeBold
+///
+void document::changeBold(bool){
+    QTextCursor cursor(textPanel->textCursor());
+    if(cursor.hasSelection()){
+        int start=cursor.selectionStart();
+        QString texto("<b>"+cursor.selectedText() + "</b>  ");
+
+        cursor.removeSelectedText();
+        cursor.setPosition(start);
+        cursor.insertHtml(texto);
+    }
+    else{
+        cursor.insertHtml(" <b> </b> ");
+    }
+}
 ///
 /// \brief document::isOpenFile
 /// \return
