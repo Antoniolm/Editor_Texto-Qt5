@@ -5,7 +5,7 @@
 /////////////////////////////////////////
 
 #include "document.h"
-
+#include <QtPrintSupport/QPrinter>
 
 document::document(QTextEdit *panel){
     textPanel=panel;
@@ -102,6 +102,18 @@ void document::search(QString elemento){
 
     //Actualizamos nuestro bool de estado
     isSearch=true;
+
+    /*textPanel->textCursor().insertImage(path+".jpg");
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setOutputFileName(path+".pdf");
+    printer.setFullPage(true);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    textPanel->print(&printer);
+    printer.newPage();*/
+
+    //textPanel->textCursor().insertImage("c:\\prueba.png");
+    //QPainter painter;
+
 }
 
 ///////////////////////////////
@@ -164,9 +176,11 @@ bool document::isSearchFile(){
 ///
 bool document::isEmpty(){
     bool salida=false;
-    if(textPanel->toPlainText().isEmpty()){
+    QString texto=textPanel->toPlainText();
+    if(texto.size()==0){
         salida=true;
     }
+
     return salida;
 }
 
