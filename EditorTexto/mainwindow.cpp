@@ -29,8 +29,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //Creamos un nuevo document y lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
-    //Este evento nos permite restaurar el formato al formato actual cuando se deje el documento vacio
-    connect(Text,SIGNAL(textChanged()),this,SLOT(on_CharFormatChanged()));
     Text->setFontPointSize(9);
 
     document newDoc(Text);
@@ -49,19 +47,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//////////////////////////////////
-/// \brief MainWindow::fontChanged
-/// Método para configurar la fuente de visualización
-///////////////////////////////////
-void MainWindow::fontChanged(QString fam,int size){
-    family=fam;
-    sizeText=size;
 
-    //Actualizamos el formato de texto en todos los documentos abiertos
-    foreach(document doc,docs){
-        doc.changeFont(family,size);
-    }
-}
 ///////////////////////////
 /// \brief MainWindow::on_cursorPositionChanged
 /// Método que se activara cuando se cambie de posición
@@ -87,15 +73,6 @@ void MainWindow::on_actionNew_File_triggered()
     //Creamos un nuevo document and lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
-    //Este evento nos permite restaurar el formato al formato actual cuando se deje el documento vacio
-    connect(Text,SIGNAL(textChanged()),this,SLOT(on_CharFormatChanged()));
-
-    //Comprobamos si se ha hecho un cambio de estilo y sino se pone el font por defecto
-    if(sizeText==0) Text->setFontPointSize(9);
-    else {
-        Text->setFontFamily(family);
-        Text->setFontPointSize(sizeText);
-    }
 
     //Creamos el nuevo doc y le añadimos el QTextEdit ya configurado
     document newDoc(Text);
@@ -316,29 +293,11 @@ void MainWindow::on_actionVisualization_Format_triggered()
     fontdialog->show();
 }
 
-//////////////////////////////////////
-/// \brief MainWindow::on_CharFormatChanged
-/// Evento que se realizara cuando haya un cambio de formato, en especial se usara cuando el documento
-/// se quede vacio, ya que QT restaura el formato por defecto cuando ocurre esto
-/////////////////////////////////////
-void MainWindow::on_CharFormatChanged(){
-    int currentPosition=ui->groupQText->currentIndex();
-
-    //Si hay un formato que no es el por defecto
-    if(docs[currentPosition].isEmpty() && sizeText!=0){
-       docs[currentPosition].changeFont(family,sizeText);
-    }
-    //Si aun tenemos el formato por defecto
-    if(docs[currentPosition].isEmpty() && sizeText==0){
-       docs[currentPosition].changeSizeFont(9);
-    }
-}
-
 void MainWindow::on_pushButton_3_clicked()
 {
     int currentPosition=ui->groupQText->currentIndex();
 
-    docs[currentPosition].changeBold(true);
+    docs[currentPosition].changeFont(FormatFlag::bold);
 
 
 }
@@ -347,12 +306,12 @@ void MainWindow::on_underline_clicked()
 {
     int currentPosition=ui->groupQText->currentIndex();
 
-    docs[currentPosition].changeUnderLine(true);
+    docs[currentPosition].changeFont(FormatFlag::underline);
 }
 
 void MainWindow::on_italic_clicked()
 {
     int currentPosition=ui->groupQText->currentIndex();
 
-    docs[currentPosition].changeItalic(true);
+    docs[currentPosition].changeFont(FormatFlag::italic);
 }

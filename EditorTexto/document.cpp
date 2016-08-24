@@ -134,64 +134,11 @@ void document::replace(QString oldElement, QString newElement){
 
 }
 
-//////////////////////////
+/////////////////////////////////////
 /// \brief document::changeFont
-/// Cambiamos la fuente del textPanel
-/////////////////////////
-void document::changeFont(QString family,int size){
-    textPanel->setFontFamily(family);
-    textPanel->setFontPointSize(size);
-    if(!textPanel->toPlainText().isEmpty())
-        textPanel->setText(textPanel->toPlainText());
-}
-
-///////////////////////////////
-/// \brief document::changeSizeFont
-/// Cambiamos el tamaño de letra de textpanel
-//////////////////////////////
-void document::changeSizeFont(int size){
-    textPanel->setFontPointSize(size);
-    if(!textPanel->toPlainText().isEmpty())
-        textPanel->setText(textPanel->toPlainText());
-}
-
-///
-/// \brief document::changeBold
-///
-void document::changeBold(bool){
-    QTextCursor cursor(textPanel->textCursor());
-    QString texto;
-    int start=cursor.selectionStart();
-
-    //cursor.select(QTextCursor::WordUnderCursor);
-    if(cursor.charFormat().font().bold()){
-        texto=cursor.selectedText();
-        texto.remove("<b>");
-        texto.remove("</b>");
-        cursor.removeSelectedText();
-        cursor.setPosition(start);
-        cursor.insertHtml(texto);
-    }
-    else{
-        if(cursor.hasSelection()){
-
-            texto="<b>"+cursor.selectedText() + "</b>";
-
-            cursor.removeSelectedText();
-            cursor.setPosition(start);
-            cursor.insertHtml(texto);
-        }
-        else{
-            int start=cursor.selectionStart();
-            cursor.insertHtml(" <b>B</b>");
-        }
-    }
-}
-
-///
-/// \brief document::changeUnderLine
-///
-void document::changeUnderLine(bool){
+/// Método para el cambio de formato del texto o de un fragmento de el
+////////////////////////////////////
+void document::changeFont(FormatFlag flag){
     //Cursor utilizado para realizar el cambio de formato
     QTextCursor cursor(textPanel->textCursor());
 
@@ -201,22 +148,23 @@ void document::changeUnderLine(bool){
     QString texto;
 
     //Creamos el objeto formato a partir del formato que ya tiene el texto
-    QTextCharFormat underlineFormat(cursor.charFormat());
+    QTextCharFormat font(cursor.charFormat());
 
     checkCursor.setPosition(checkCursor.selectionEnd()-1);
+
     //Comprobamos si el texto esta en underline
-    if(checkCursor.charFormat().font().underline()){
+    if(detectFormat(flag,&checkCursor)){
         //Cambiamos el QTextCharFormat
-        underlineFormat.setFontUnderline(false);
+        configureFont(flag,&font,false);
 
         //Realizamos el cambio de formato en el texto seleccionado
         texto=cursor.selectedText();
         cursor.removeSelectedText();
-        cursor.insertText(texto,underlineFormat);
+        cursor.insertText(texto,font);
     }
     else{ //Si no esta
         //Cambiamos el QTextCharFormat
-        underlineFormat.setFontUnderline(true);
+        configureFont(flag,&font,true);
 
         //Si el cursor tiene un texto seleccionado
         if(cursor.hasSelection()){
@@ -224,48 +172,17 @@ void document::changeUnderLine(bool){
             //Realizamos el cambio de formato en el texto seleccionado
             texto=cursor.selectedText();
             cursor.removeSelectedText();
-            cursor.insertText(texto,underlineFormat);
+            cursor.insertText(texto,font);
         }
         else{ //si no hay texto seleccionado
             //Realizamos el cambio de formato en un texto vacio
             texto=" ";
-            cursor.insertText(texto,underlineFormat);
+            cursor.insertText(texto,font);
             cursor.setPosition(cursor.position()-1);
         }
     }
 }
 
-///
-/// \brief document::changeUnderLine
-///
-void document::changeItalic(bool){
-    QTextCursor cursor(textPanel->textCursor());
-    QString texto;
-    int start=cursor.selectionStart();
-
-    if(cursor.charFormat().font().italic()){
-        texto=cursor.selectedText();
-        texto.remove("<i>");
-        texto.remove("</i>");
-        cursor.removeSelectedText();
-        cursor.setPosition(start);
-        cursor.insertHtml(texto);
-    }
-    else{
-        if(cursor.hasSelection()){
-
-            texto="<i>"+cursor.selectedText() + "</i>";
-
-            cursor.removeSelectedText();
-            cursor.setPosition(start);
-            cursor.insertHtml(texto);
-        }
-        else{
-            int start=cursor.selectionStart();
-            cursor.insertHtml(" <i>B</i>");
-        }
-    }
-}
 
 ///
 /// \brief document::isOpenFile
@@ -378,5 +295,46 @@ QString document::extractName(QString path){
     }
 
     return  salida;
+}
 
+////////////////////////////////
+/// \brief document::configureFont
+/// Método para configurar internamente el formato del texto
+/////////////////////////
+void document::configureFont(FormatFlag flag,QTextCharFormat *font,bool value){
+
+     switch(flag){
+        case FormatFlag::bold : //Caso -> texto negrita
+             if(value)font->setFontWeight(QFont::Bold);
+             else font->setFontWeight(QFont::Normal);
+             break;
+        case FormatFlag::italic : //Caso -> texto cursiva
+             font->setFontItalic(value);
+             break;
+        case FormatFlag::underline :  //Caso -> texto subrayado
+             font->setFontUnderline(value);
+             break;
+
+     }
+}
+
+
+///////////////////////////////////
+/// \brief document::detectformat
+/// Método para detectar en que formato esta el codigo
+///////////////////////////////////
+bool document::detectFormat(FormatFlag flag,QTextCursor *cursor){
+    bool salida=false;
+    switch(flag){
+       case FormatFlag::bold : //Caso -> texto negrita
+            salida=cursor->charFormat().font().bold();
+            break;
+       case FormatFlag::italic : //Caso -> texto cursiva
+            salida=cursor->charFormat().font().italic();
+            break;
+       case FormatFlag::underline : //Caso -> texto subrayado
+            salida=cursor->charFormat().font().underline();
+            break;
+    }
+    return salida;
 }

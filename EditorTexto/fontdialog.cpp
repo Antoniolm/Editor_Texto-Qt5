@@ -33,6 +33,6 @@ FontDialog::~FontDialog(){
 
 void FontDialog::on_pushButton_clicked()
 {
-    mainwindow->fontChanged(ui->familyfont->currentText(),ui->sizefont->currentData().toInt());
+    //mainwindow->fontChanged(ui->familyfont->currentText(),ui->sizefont->currentData().toInt());
     close();
 }

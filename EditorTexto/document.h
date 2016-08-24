@@ -15,6 +15,15 @@
 #include <QTextStream>
 #include <QFileDialog>
 
+//Enum que nos permite realizar diferente formatos
+//Para asi poder conocer el tipo de formato que se esta
+//introduciendo en ese momento
+enum FormatFlag{
+    bold,//Para la opcion de negrita
+    italic, //Para la opcion de italica
+    underline // Para la opcion de subrayado
+};
+
 class document
 {
 public:
@@ -24,11 +33,7 @@ public:
     bool createDocument();
     void search(QString);
     void replace(QString,QString);
-    void changeFont(QString,int);
-    void changeSizeFont(int);
-    void changeBold(bool);
-    void changeUnderLine(bool);
-    void changeItalic(bool);
+    void changeFont(FormatFlag);
     bool isOpenFile();
     bool isSearchFile();
     bool isEmpty();
@@ -43,6 +48,10 @@ public:
 
 private:
     QString extractName(QString path);
+    bool detectFormat(FormatFlag flag,QTextCursor *cursor);
+    void configureFont(FormatFlag,QTextCharFormat *,bool);
+
+    //void configureFont(FormatFlag,QTextCharFormat,int);
     QFile *file;
     QTextEdit *textPanel;
     QString fileName;

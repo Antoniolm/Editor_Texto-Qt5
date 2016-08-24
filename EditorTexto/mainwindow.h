@@ -32,7 +32,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void fontChanged(QString,int);
 
 private slots:
     void on_cursorPositionChanged();
@@ -58,8 +57,6 @@ private slots:
     void on_actionAbout_triggered();
 
     void on_actionVisualization_Format_triggered();
-
-    void on_CharFormatChanged();
 
     void on_pushButton_3_clicked();
 
