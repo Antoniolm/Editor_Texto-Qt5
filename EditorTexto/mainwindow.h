@@ -56,13 +56,17 @@ private slots:
 
     void on_actionAbout_triggered();
 
-    void on_actionVisualization_Format_triggered();
-
     void on_pushButton_3_clicked();
 
     void on_underline_clicked();
 
     void on_italic_clicked();
+
+    void on_actionExport_to_pdf_triggered();
+
+    void on_currentSizeChanged();
+
+    void on_currentFamilyChanged();
 
 private:
     Ui::MainWindow *ui;

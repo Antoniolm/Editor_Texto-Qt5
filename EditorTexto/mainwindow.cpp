@@ -10,6 +10,7 @@
 #include <replacedialog.h>
 #include <informationdialog.h>
 #include <fontdialog.h>
+#include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,9 +38,19 @@ MainWindow::MainWindow(QWidget *parent) :
     //Cambiamos el titulo de la pestaña
     ui->groupQText->addTab(Text,"Untitled.txt");
 
-    //Inicializamos el formato
-    family="";
-    sizeText=0;
+    //Inicializamos las familias y tamaños disponibles
+    for(int size=6;size<=30;size++)
+        ui->sizefont->addItem(QString::number(size),size);
+
+    connect(ui->sizefont,SIGNAL(currentIndexChanged(QString)),this,SLOT(on_currentSizeChanged()));
+    connect(ui->familyfont,SIGNAL(currentIndexChanged(QString)),this,SLOT(on_currentFamilyChanged()));
+
+    QFontDatabase db;
+    QStringList families =db.families();
+
+    for(int i=4;i<50;i++){
+        ui->familyfont->addItem(families[i]);
+    }
 }
 
 MainWindow::~MainWindow()
@@ -282,17 +293,6 @@ void MainWindow::on_actionAbout_triggered()
     information->show();
 }
 
-////////////////////////////////////////
-/// \brief MainWindow::on_actionVisualization_Format_triggered
-/// Método activado cuando pulsamos la opción de Visualization format
-/// Configuramos la fuente de todos los documentos
-///////////////////////////////////////
-void MainWindow::on_actionVisualization_Format_triggered()
-{
-    FontDialog *fontdialog=new FontDialog(this);
-    fontdialog->show();
-}
-
 void MainWindow::on_pushButton_3_clicked()
 {
     int currentPosition=ui->groupQText->currentIndex();
@@ -314,4 +314,39 @@ void MainWindow::on_italic_clicked()
     int currentPosition=ui->groupQText->currentIndex();
 
     docs[currentPosition].changeFont(FormatFlag::italic);
+}
+
+//////////////////////////////////
+/// \brief MainWindow::on_actionExport_to_pdf_triggered
+/// Método el cual nos permite generar un documento pdf a partir de nuestro fichero
+/// actualmente visible
+//////////////////////////////////
+void MainWindow::on_actionExport_to_pdf_triggered()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+}
+
+/////////////////
+/// \brief MainWindow::on_currentIndex_Changed
+/// Método para detectar un cambio de formato en el tamaño
+////////////////
+void MainWindow::on_currentSizeChanged(){
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].changeFont(FormatFlag::size,ui->sizefont->currentText());
+
+}
+
+/////////////////////
+/// \brief MainWindow::on_currentFamilyChanged
+/// Método para detectar un cambio de formato en la familia del texto
+/////////////////////
+void MainWindow::on_currentFamilyChanged(){
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].changeFont(FormatFlag::size,ui->familyfont->currentText());
+
+
+
 }

@@ -158,9 +158,7 @@ void document::changeFont(FormatFlag flag){
         configureFont(flag,&font,false);
 
         //Realizamos el cambio de formato en el texto seleccionado
-        texto=cursor.selectedText();
-        cursor.removeSelectedText();
-        cursor.insertText(texto,font);
+        cursor.setCharFormat(font);
     }
     else{ //Si no esta
         //Cambiamos el QTextCharFormat
@@ -170,9 +168,7 @@ void document::changeFont(FormatFlag flag){
         if(cursor.hasSelection()){
 
             //Realizamos el cambio de formato en el texto seleccionado
-            texto=cursor.selectedText();
-            cursor.removeSelectedText();
-            cursor.insertText(texto,font);
+            cursor.setCharFormat(font);
         }
         else{ //si no hay texto seleccionado
             //Realizamos el cambio de formato en un texto vacio
@@ -183,7 +179,30 @@ void document::changeFont(FormatFlag flag){
     }
 }
 
+///
+/// \brief document::changeFont
+/// \param flag
+///
+void document::changeFont(FormatFlag flag,QString valor){
+    //Cursor utilizado para realizar el cambio de formato
+    QTextCursor cursor(textPanel->textCursor());
+    //Creamos el objeto formato a partir del formato que ya tiene el texto
+    QTextCharFormat font(cursor.charFormat());
 
+    switch(flag){
+        case FormatFlag::size :
+            font.setFontPointSize(valor.toInt());
+            cursor.setCharFormat(font);
+        break;
+        case FormatFlag::family :
+            font.setFontFamily(valor);
+            cursor.setCharFormat(font);
+        break;
+    }
+
+
+
+}
 ///
 /// \brief document::isOpenFile
 /// \return

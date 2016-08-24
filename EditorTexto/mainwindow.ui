@@ -18,7 +18,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QComboBox" name="comboBox_3">
+       <widget class="QComboBox" name="familyfont">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
           <horstretch>4</horstretch>
@@ -28,7 +28,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="Size">
+       <widget class="QComboBox" name="sizefont">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
           <horstretch>1</horstretch>
@@ -168,6 +168,7 @@
     <addaction name="actionOpen_File"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
+    <addaction name="actionExport_to_pdf"/>
     <addaction name="actionClose_file"/>
     <addaction name="actionExit"/>
    </widget>
@@ -188,7 +189,6 @@
     <property name="title">
      <string>Format</string>
     </property>
-    <addaction name="actionVisualization_Format"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -259,6 +259,11 @@
   <action name="actionVisualization_Format">
    <property name="text">
     <string>Visualization Format</string>
+   </property>
+  </action>
+  <action name="actionExport_to_pdf">
+   <property name="text">
+    <string>Export to pdf</string>
    </property>
   </action>
  </widget>
