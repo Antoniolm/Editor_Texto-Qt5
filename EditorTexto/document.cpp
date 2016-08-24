@@ -163,6 +163,7 @@ void document::changeBold(bool){
     QString texto;
     int start=cursor.selectionStart();
 
+    //cursor.select(QTextCursor::WordUnderCursor);
     if(cursor.charFormat().font().bold()){
         texto=cursor.selectedText();
         texto.remove("<b>");
@@ -191,30 +192,45 @@ void document::changeBold(bool){
 /// \brief document::changeUnderLine
 ///
 void document::changeUnderLine(bool){
+    //Cursor utilizado para realizar el cambio de formato
     QTextCursor cursor(textPanel->textCursor());
-    QString texto;
-    int start=cursor.selectionStart();
 
-    if(cursor.charFormat().font().underline()){
+    //Cursor para checkear correctamente el formato actual del texto
+    //seleccionado o de la posición actual del cursor
+    QTextCursor checkCursor(textPanel->textCursor());
+    QString texto;
+
+    //Creamos el objeto formato a partir del formato que ya tiene el texto
+    QTextCharFormat underlineFormat(cursor.charFormat());
+
+    checkCursor.setPosition(checkCursor.selectionEnd()-1);
+    //Comprobamos si el texto esta en underline
+    if(checkCursor.charFormat().font().underline()){
+        //Cambiamos el QTextCharFormat
+        underlineFormat.setFontUnderline(false);
+
+        //Realizamos el cambio de formato en el texto seleccionado
         texto=cursor.selectedText();
-        texto.remove("<u>");
-        texto.remove("</u>");
         cursor.removeSelectedText();
-        cursor.setPosition(start);
-        cursor.insertHtml(texto);
+        cursor.insertText(texto,underlineFormat);
     }
-    else{
+    else{ //Si no esta
+        //Cambiamos el QTextCharFormat
+        underlineFormat.setFontUnderline(true);
+
+        //Si el cursor tiene un texto seleccionado
         if(cursor.hasSelection()){
 
-            texto="<u>"+cursor.selectedText() + "</u>";
-
+            //Realizamos el cambio de formato en el texto seleccionado
+            texto=cursor.selectedText();
             cursor.removeSelectedText();
-            cursor.setPosition(start);
-            cursor.insertHtml(texto);
+            cursor.insertText(texto,underlineFormat);
         }
-        else{
-            int start=cursor.selectionStart();
-            cursor.insertHtml(" <u>B</u>");
+        else{ //si no hay texto seleccionado
+            //Realizamos el cambio de formato en un texto vacio
+            texto=" ";
+            cursor.insertText(texto,underlineFormat);
+            cursor.setPosition(cursor.position()-1);
         }
     }
 }
