@@ -63,6 +63,10 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void on_underline_clicked();
+
+    void on_italic_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLabel *state;

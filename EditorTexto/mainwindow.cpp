@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Inicializamos diferentes variables y opciones
     this->setWindowTitle("Text Editor");
     existFile=false;//I need to review this variable because I think that I dont need it
+    this->setFocusPolicy(Qt::NoFocus);
 
     //Inicializamos el estado de los botones close and save
     ui->actionSave->setEnabled(false);
@@ -340,4 +341,18 @@ void MainWindow::on_pushButton_3_clicked()
     docs[currentPosition].changeBold(true);
 
 
+}
+
+void MainWindow::on_underline_clicked()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].changeUnderLine(true);
+}
+
+void MainWindow::on_italic_clicked()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].changeItalic(true);
 }

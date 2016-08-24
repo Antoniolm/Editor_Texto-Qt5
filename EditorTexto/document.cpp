@@ -23,7 +23,7 @@ void document::saveDocument(){
     if(!file->open(QFile::WriteOnly| QFile::Truncate | QFile::Text))return;
 
     //Escribimos en el fichero
-    QString texto=textPanel->toPlainText();
+    QString texto=textPanel->toHtml();
 
     //Realizamos el canal de comunicación y realizamos una escritura en el fichero
     QTextStream out(file);
@@ -55,7 +55,7 @@ bool document::openDocument(QString name){
     QString contentFile = in.readAll();
 
     //Enviamos el texto del documento a nuestro mainText
-    textPanel->setText(contentFile);
+    textPanel->setHtml(contentFile);
     isOpen=true;
 
     //Cerramos el fichero
@@ -160,18 +160,97 @@ void document::changeSizeFont(int size){
 ///
 void document::changeBold(bool){
     QTextCursor cursor(textPanel->textCursor());
-    if(cursor.hasSelection()){
-        int start=cursor.selectionStart();
-        QString texto("<b>"+cursor.selectedText() + "</b>  ");
+    QString texto;
+    int start=cursor.selectionStart();
 
+    if(cursor.charFormat().font().bold()){
+        texto=cursor.selectedText();
+        texto.remove("<b>");
+        texto.remove("</b>");
         cursor.removeSelectedText();
         cursor.setPosition(start);
         cursor.insertHtml(texto);
     }
     else{
-        cursor.insertHtml(" <b> </b> ");
+        if(cursor.hasSelection()){
+
+            texto="<b>"+cursor.selectedText() + "</b>";
+
+            cursor.removeSelectedText();
+            cursor.setPosition(start);
+            cursor.insertHtml(texto);
+        }
+        else{
+            int start=cursor.selectionStart();
+            cursor.insertHtml(" <b>B</b>");
+        }
     }
 }
+
+///
+/// \brief document::changeUnderLine
+///
+void document::changeUnderLine(bool){
+    QTextCursor cursor(textPanel->textCursor());
+    QString texto;
+    int start=cursor.selectionStart();
+
+    if(cursor.charFormat().font().underline()){
+        texto=cursor.selectedText();
+        texto.remove("<u>");
+        texto.remove("</u>");
+        cursor.removeSelectedText();
+        cursor.setPosition(start);
+        cursor.insertHtml(texto);
+    }
+    else{
+        if(cursor.hasSelection()){
+
+            texto="<u>"+cursor.selectedText() + "</u>";
+
+            cursor.removeSelectedText();
+            cursor.setPosition(start);
+            cursor.insertHtml(texto);
+        }
+        else{
+            int start=cursor.selectionStart();
+            cursor.insertHtml(" <u>B</u>");
+        }
+    }
+}
+
+///
+/// \brief document::changeUnderLine
+///
+void document::changeItalic(bool){
+    QTextCursor cursor(textPanel->textCursor());
+    QString texto;
+    int start=cursor.selectionStart();
+
+    if(cursor.charFormat().font().italic()){
+        texto=cursor.selectedText();
+        texto.remove("<i>");
+        texto.remove("</i>");
+        cursor.removeSelectedText();
+        cursor.setPosition(start);
+        cursor.insertHtml(texto);
+    }
+    else{
+        if(cursor.hasSelection()){
+
+            texto="<i>"+cursor.selectedText() + "</i>";
+
+            cursor.removeSelectedText();
+            cursor.setPosition(start);
+            cursor.insertHtml(texto);
+        }
+        else{
+            int start=cursor.selectionStart();
+            cursor.insertHtml(" <i>B</i>");
+        }
+    }
+}
+
 ///
 /// \brief document::isOpenFile
 /// \return

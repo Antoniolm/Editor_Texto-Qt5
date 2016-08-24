@@ -27,6 +27,8 @@ public:
     void changeFont(QString,int);
     void changeSizeFont(int);
     void changeBold(bool);
+    void changeUnderLine(bool);
+    void changeItalic(bool);
     bool isOpenFile();
     bool isSearchFile();
     bool isEmpty();
