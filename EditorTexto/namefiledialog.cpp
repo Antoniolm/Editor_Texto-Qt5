@@ -32,10 +32,14 @@ void NameFileDialog::on_pushButton_clicked()
     switch(flag){
     case dialogFlag::newNameFile: //Caso-> opcion Save AS
         //Obtenemos el nombre
-        doc->setName(ui->textEdit->text()+".txt");
+        doc->setName(ui->textEdit->text());
         break;
     case dialogFlag::search: //Caso -> opción search
         doc->search(ui->textEdit->text());
+        break;
+    case dialogFlag::expPdf: //Caso -> opción imprimir
+        if(!ui->textEdit->text().isEmpty())
+                doc->print(ui->textEdit->text());
         break;
     }
 

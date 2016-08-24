@@ -36,6 +36,7 @@ public:
     void replace(QString,QString);
     void changeFont(FormatFlag);
     void changeFont(QString,int);
+    void print(QString);
     bool isOpenFile();
     bool isSearchFile();
     bool isEmpty();
@@ -43,6 +44,7 @@ public:
     QString getPath();
     QTextEdit* getTextPanel();
     void setPath(QString);
+    void setPathPdf(QString);
     void setName(QString);
     void desactiveSearch();
 
@@ -58,6 +60,7 @@ private:
     QTextEdit *textPanel;
     QString fileName;
     QString path;
+    QString pathPdf;
     bool isOpen; //Boolean para saber si el el documento tiene un fichero activo
     bool isSearch; //Boolean para saber si se tiene una busqueda activa
 

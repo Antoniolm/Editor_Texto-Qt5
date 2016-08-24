@@ -19,8 +19,9 @@ class Dialog;
 //Enum que nos permite realizar diferente usos en
 //nuestro namefileDialog.
 enum dialogFlag{
-    newNameFile,//Para la opcion Save as
-    search //Para la opcion search
+    newNameFile,//Para la opción Save as
+    search, //Para la opción search
+    expPdf  //Para la opción de exportar a pdf
 };
 
 class NameFileDialog : public QDialog

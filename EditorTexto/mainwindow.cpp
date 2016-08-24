@@ -323,7 +323,24 @@ void MainWindow::on_italic_clicked()
 //////////////////////////////////
 void MainWindow::on_actionExport_to_pdf_triggered()
 {
-    //int currentPosition=ui->groupQText->currentIndex();
+    //Obtenemos el tab actual
+    int currentPosition=ui->groupQText->currentIndex();
+
+    //Lanzamos la intefaz de selección de directorio
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                                "C://",
+                                                QFileDialog::ShowDirsOnly
+                                                | QFileDialog::DontResolveSymlinks);
+    //Si no esta vacio
+    if(!dir.isEmpty()){
+        //Insertamos el path de nuestro documento pdf
+        docs[currentPosition].setPathPdf(dir);
+
+        //Obtenemos el nuevo nombre y creamos el documento con dicho nombre
+        NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"),dialogFlag::expPdf);
+        newdialog->exec();
+
+    }
 
 }
 

@@ -198,6 +198,23 @@ void document::changeFont(QString family,int size){
     cursor.setCharFormat(font);
 
 }
+
+///////////////////////////
+/// \brief document::print
+/// Método para la creación de un pdf a partir
+/// del documento actualmente visible
+//////////////////////////
+void document::print(QString name){
+
+    QPrinter printer(QPrinter::HighResolution);
+    printer.setOutputFileName(pathPdf+"/"+name+".pdf");
+    printer.setFullPage(true);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    textPanel->print(&printer);
+    printer.newPage();
+
+}
+
 ///
 /// \brief document::isOpenFile
 /// \return
@@ -236,38 +253,45 @@ QString document::getName(){
     return fileName;
 }
 
-///
+///////////////////////
 /// \brief document::getPath
 /// \return
-///
+///////////////////////
 QString document::getPath(){
     return path;
 }
 
-///
+///////////////////////
 /// \brief document::getTextPanel
 /// \return
-///
+///////////////////////
 QTextEdit* document::getTextPanel(){
     return textPanel;
 }
 
-///
+///////////////////////
 /// \brief document::setPath
 /// \param entrada
-///
+///////////////////////
 void document::setPath(QString entrada){
     path=entrada;
 }
 
-///
+///////////////////////
 /// \brief document::setName
 /// \param entrada
-///
+///////////////////////
 void document::setName(QString entrada){
     fileName=entrada;
 }
 
+///////////////////////
+/// \brief document::setPathPdf
+/// \param entrada
+/////////////////////
+void document::setPathPdf(QString entrada){
+    pathPdf=entrada;
+}
 void document::desactiveSearch(){
     //Cambiamos el texto de html a texto Plano
     textPanel->setText(textPanel->toPlainText());
