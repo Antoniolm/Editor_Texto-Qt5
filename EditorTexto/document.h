@@ -21,9 +21,8 @@
 enum FormatFlag{
     bold,//Para la opción de negrita
     italic, //Para la opción de italic
-    underline, // Para la opción de subrayado
-    size, //Para la opción de tamaño de la fuente
-    family //Para la opción de familia
+    underline // Para la opción de subrayado
+
 };
 
 class document
@@ -36,7 +35,7 @@ public:
     void search(QString);
     void replace(QString,QString);
     void changeFont(FormatFlag);
-    void changeFont(FormatFlag,QString);
+    void changeFont(QString,int);
     bool isOpenFile();
     bool isSearchFile();
     bool isEmpty();

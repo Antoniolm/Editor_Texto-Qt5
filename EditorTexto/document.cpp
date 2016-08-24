@@ -179,28 +179,23 @@ void document::changeFont(FormatFlag flag){
     }
 }
 
-///
+///////////////////////////
 /// \brief document::changeFont
-/// \param flag
-///
-void document::changeFont(FormatFlag flag,QString valor){
+///Método para el cambio de formato del texto o de un fragmento de el
+////////////////////////
+void document::changeFont(QString family,int size){
     //Cursor utilizado para realizar el cambio de formato
     QTextCursor cursor(textPanel->textCursor());
+
     //Creamos el objeto formato a partir del formato que ya tiene el texto
     QTextCharFormat font(cursor.charFormat());
 
-    switch(flag){
-        case FormatFlag::size :
-            font.setFontPointSize(valor.toInt());
-            cursor.setCharFormat(font);
-        break;
-        case FormatFlag::family :
-            font.setFontFamily(valor);
-            cursor.setCharFormat(font);
-        break;
-    }
+    //Modificamos el formato
+    font.setFontFamily(family);
+    font.setFontPointSize(size);
 
-
+    //Actualizamos el formato
+    cursor.setCharFormat(font);
 
 }
 ///

@@ -323,30 +323,28 @@ void MainWindow::on_italic_clicked()
 //////////////////////////////////
 void MainWindow::on_actionExport_to_pdf_triggered()
 {
-    int currentPosition=ui->groupQText->currentIndex();
+    //int currentPosition=ui->groupQText->currentIndex();
 
 }
 
 /////////////////
 /// \brief MainWindow::on_currentIndex_Changed
-/// Método para detectar un cambio de formato en el tamaño
+/// Método para detectar un cambio de formato al cambiar en el tamaño
 ////////////////
 void MainWindow::on_currentSizeChanged(){
     int currentPosition=ui->groupQText->currentIndex();
 
-    docs[currentPosition].changeFont(FormatFlag::size,ui->sizefont->currentText());
+    docs[currentPosition].changeFont(ui->familyfont->currentText(),ui->sizefont->currentText().toInt());
 
 }
 
 /////////////////////
 /// \brief MainWindow::on_currentFamilyChanged
-/// Método para detectar un cambio de formato en la familia del texto
+/// Método para detectar un cambio de formato al cambiar la familia del texto
 /////////////////////
 void MainWindow::on_currentFamilyChanged(){
     int currentPosition=ui->groupQText->currentIndex();
 
-    docs[currentPosition].changeFont(FormatFlag::size,ui->familyfont->currentText());
-
-
+    docs[currentPosition].changeFont(ui->familyfont->currentText(),ui->sizefont->currentText().toInt());
 
 }
