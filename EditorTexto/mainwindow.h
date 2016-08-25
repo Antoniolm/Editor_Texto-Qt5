@@ -68,6 +68,12 @@ private slots:
 
     void on_currentFamilyChanged();
 
+    void on_Right_clicked();
+
+    void on_center_clicked();
+
+    void on_left_clicked();
+
 private:
     Ui::MainWindow *ui;
     QLabel *state;

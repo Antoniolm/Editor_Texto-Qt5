@@ -22,7 +22,14 @@ enum FormatFlag{
     bold,//Para la opción de negrita
     italic, //Para la opción de italic
     underline // Para la opción de subrayado
+};
 
+//Enum que nos permite cambiar la disposición de el texto
+//o de un fragmento de el
+enum AlignFlag{
+    leftAlign, // Para la opción de texto a la izquierda
+    centerAlign, // Para la opción de texto a el centro
+    rightAlign // Para la opción de texto a la derecha
 };
 
 class document
@@ -36,6 +43,7 @@ public:
     void replace(QString,QString);
     void changeFont(FormatFlag);
     void changeFont(QString,int);
+    void changeAlign(AlignFlag);
     void print(QString);
     bool isOpenFile();
     bool isSearchFile();

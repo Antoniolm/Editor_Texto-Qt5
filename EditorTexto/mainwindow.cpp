@@ -365,3 +365,32 @@ void MainWindow::on_currentFamilyChanged(){
     docs[currentPosition].changeFont(ui->familyfont->currentText(),ui->sizefont->currentText().toInt());
 
 }
+
+/////////////////////////
+/// \brief MainWindow::on_Right_clicked
+/// Método para realizar un cambio de align en el texto seleccionado
+/////////////////////////
+void MainWindow::on_Right_clicked()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].changeAlign(AlignFlag::rightAlign);
+}
+
+/////////////////////////
+/// \brief MainWindow::on_center_clicked
+/// Método para realizar un cambio de align en el texto seleccionado
+/////////////////////////
+void MainWindow::on_center_clicked()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].changeAlign(AlignFlag::centerAlign);
+}
+
+void MainWindow::on_left_clicked()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].changeAlign(AlignFlag::leftAlign);
+}

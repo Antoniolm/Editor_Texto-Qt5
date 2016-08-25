@@ -92,7 +92,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="Right">
+       <widget class="QPushButton" name="left">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
           <horstretch>1</horstretch>
@@ -103,12 +103,12 @@
          <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
-         <string>Right</string>
+         <string>Left</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="center">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
           <horstretch>1</horstretch>
@@ -124,7 +124,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="Right">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
           <horstretch>1</horstretch>
@@ -135,7 +135,7 @@
          <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
-         <string>Left</string>
+         <string>Right</string>
         </property>
        </widget>
       </item>

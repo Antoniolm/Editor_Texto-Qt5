@@ -209,6 +209,36 @@ void document::changeFont(QString family,int size){
 
 }
 
+////////////////////////////////
+/// \brief document::changeAlign
+/// Método para el cambio de alineamiento del texto
+////////////////////////////////
+void document::changeAlign(AlignFlag flag){
+    //Cursor utilizado para realizar el cambio de formato
+    QTextCursor cursor(textPanel->textCursor());
+
+    //Creamos el objeto formato a partir del formato que ya tiene el texto
+    //QTextCharFormat font(cursor.charFormat());
+    QTextBlockFormat font(cursor.blockFormat());
+
+    switch(flag){
+        case AlignFlag::leftAlign:
+            font.setAlignment(Qt::AlignLeft);
+            //font.setVerticalAlignment(QTextCharFormat::AlignBottom);
+        break;
+        case AlignFlag::centerAlign:
+            font.setAlignment(Qt::AlignCenter);
+            //font.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+        break;
+        case AlignFlag::rightAlign:
+            font.setAlignment(Qt::AlignRight);
+            //font.setVerticalAlignment(QTextCharFormat::AlignNormal);
+        break;
+    }
+
+    cursor.setBlockFormat(font);
+}
+
 ///////////////////////////
 /// \brief document::print
 /// Método para la creación de un pdf a partir
