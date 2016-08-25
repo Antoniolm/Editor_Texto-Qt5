@@ -9,7 +9,6 @@
 #include <namefiledialog.h>
 #include <replacedialog.h>
 #include <informationdialog.h>
-#include <fontdialog.h>
 #include <QFontDatabase>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -388,9 +387,25 @@ void MainWindow::on_center_clicked()
     docs[currentPosition].changeAlign(AlignFlag::centerAlign);
 }
 
+/////////////////////////
+/// \brief MainWindow::on_left_clicked
+/// Método para realizar un cambio de align en el texto seleccionado
+/////////////////////////
 void MainWindow::on_left_clicked()
 {
     int currentPosition=ui->groupQText->currentIndex();
 
     docs[currentPosition].changeAlign(AlignFlag::leftAlign);
+}
+
+
+///////////////////////////////////
+/// \brief MainWindow::on_actionInsert_Table_triggered
+/// Método para a inserción de una tabla en la posición actual del cursor
+//////////////////////////////////
+void MainWindow::on_actionInsert_Table_triggered()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+    docs[currentPosition].insertTable();
 }

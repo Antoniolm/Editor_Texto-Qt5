@@ -193,8 +193,10 @@
    </widget>
    <widget class="QMenu" name="menuFormat">
     <property name="title">
-     <string>Format</string>
+     <string>Insert</string>
     </property>
+    <addaction name="actionInsert_Image"/>
+    <addaction name="actionInsert_Table"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -270,6 +272,16 @@
   <action name="actionExport_to_pdf">
    <property name="text">
     <string>Export to pdf</string>
+   </property>
+  </action>
+  <action name="actionInsert_Image">
+   <property name="text">
+    <string>Insert Image</string>
+   </property>
+  </action>
+  <action name="actionInsert_Table">
+   <property name="text">
+    <string>Insert Table</string>
    </property>
   </action>
  </widget>

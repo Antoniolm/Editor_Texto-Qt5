@@ -218,25 +218,27 @@ void document::changeAlign(AlignFlag flag){
     QTextCursor cursor(textPanel->textCursor());
 
     //Creamos el objeto formato a partir del formato que ya tiene el texto
-    //QTextCharFormat font(cursor.charFormat());
-    QTextBlockFormat font(cursor.blockFormat());
+    //o la tabla o la imagen
+    /*if(cursor.charFormat.isTableFormat()){
+        QTextTableFormat format;
+    }
+    else{*/
+        QTextBlockFormat format(cursor.blockFormat());
+    //}
 
     switch(flag){
         case AlignFlag::leftAlign:
-            font.setAlignment(Qt::AlignLeft);
-            //font.setVerticalAlignment(QTextCharFormat::AlignBottom);
+             format.setAlignment(Qt::AlignLeft);
         break;
         case AlignFlag::centerAlign:
-            font.setAlignment(Qt::AlignCenter);
-            //font.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+            format.setAlignment(Qt::AlignCenter);
         break;
         case AlignFlag::rightAlign:
-            font.setAlignment(Qt::AlignRight);
-            //font.setVerticalAlignment(QTextCharFormat::AlignNormal);
+            format.setAlignment(Qt::AlignRight);
         break;
     }
 
-    cursor.setBlockFormat(font);
+    cursor.setBlockFormat(format);
 }
 
 ///////////////////////////
@@ -255,6 +257,19 @@ void document::print(QString name){
 
 }
 
+//////////////////
+/// \brief insertTable
+/// Método para insertar una tabla en nuestro documento actualmente visible
+///////////////////
+void document::insertTable(){
+    //Cursor utilizado para realizar el cambio de formato
+    QTextCursor cursor(textPanel->textCursor());
+
+    //Insertamos la tabla
+    //QTextTableFormat format;
+    //format.setBorderStyle();
+    cursor.insertTable(3,3);
+}
 ///
 /// \brief document::isOpenFile
 /// \return

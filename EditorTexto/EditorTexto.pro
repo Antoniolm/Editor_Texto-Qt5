@@ -17,18 +17,15 @@ SOURCES += main.cpp\
     document.cpp \
     namefiledialog.cpp \
     replacedialog.cpp \
-    informationdialog.cpp \
-    fontdialog.cpp
+    informationdialog.cpp
 
 HEADERS  += mainwindow.h \
     document.h \
     namefiledialog.h \
     replacedialog.h \
-    informationdialog.h \
-    fontdialog.h
+    informationdialog.h
 
 FORMS    += mainwindow.ui \
     namefiledialog.ui \
     replacedialog.ui \
-    informationdialog.ui \
-    fontdialog.ui
+    informationdialog.ui

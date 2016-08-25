@@ -74,6 +74,8 @@ private slots:
 
     void on_left_clicked();
 
+    void on_actionInsert_Table_triggered();
+
 private:
     Ui::MainWindow *ui;
     QLabel *state;
