@@ -194,8 +194,18 @@ void document::changeFont(QString family,int size){
     font.setFontFamily(family);
     font.setFontPointSize(size);
 
-    //Actualizamos el formato
-    cursor.setCharFormat(font);
+    //Si el cursor tiene un texto seleccionado
+    if(cursor.hasSelection()){
+
+        //Realizamos el cambio de formato en el texto seleccionado
+        cursor.setCharFormat(font);
+    }
+    else{ //si no hay texto seleccionado
+        //Realizamos el cambio de formato en un texto vacio
+        QString texto(" ");
+        cursor.insertText(texto,font);
+        cursor.setPosition(cursor.position()-1);
+    }
 
 }
 
