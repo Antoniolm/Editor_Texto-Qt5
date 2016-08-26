@@ -218,13 +218,7 @@ void document::changeAlign(AlignFlag flag){
     QTextCursor cursor(textPanel->textCursor());
 
     //Creamos el objeto formato a partir del formato que ya tiene el texto
-    //o la tabla o la imagen
-    /*if(cursor.charFormat.isTableFormat()){
-        QTextTableFormat format;
-    }
-    else{*/
-        QTextBlockFormat format(cursor.blockFormat());
-    //}
+    QTextBlockFormat format(cursor.blockFormat());
 
     switch(flag){
         case AlignFlag::leftAlign:
@@ -265,10 +259,16 @@ void document::insertTable(){
     //Cursor utilizado para realizar el cambio de formato
     QTextCursor cursor(textPanel->textCursor());
 
-    //Insertamos la tabla
-    //QTextTableFormat format;
-    //format.setBorderStyle();
-    cursor.insertTable(3,3);
+    //Configuramos nuestro table
+    QTextTableFormat tableFormat;
+    tableFormat.setAlignment(Qt::AlignCenter);
+    tableFormat.setBorder(0.5);
+    tableFormat.setCellSpacing(0);
+    tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+    tableFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
+
+    //Insertamos la table
+    cursor.insertTable(3,3,tableFormat);
 }
 ///
 /// \brief document::isOpenFile
