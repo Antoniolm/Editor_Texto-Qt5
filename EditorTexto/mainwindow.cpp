@@ -407,5 +407,6 @@ void MainWindow::on_actionInsert_Table_triggered()
 {
     int currentPosition=ui->groupQText->currentIndex();
 
-    docs[currentPosition].insertTable();
+    TableDialog *tableDia=new TableDialog(&docs[currentPosition]);
+    tableDia->exec();
 }

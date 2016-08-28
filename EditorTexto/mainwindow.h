@@ -19,6 +19,7 @@
 #include <QFileDialog>
 #include <QTextStream>
 #include <QIODevice>
+#include <tabledialog.h>
 
 
 namespace Ui {

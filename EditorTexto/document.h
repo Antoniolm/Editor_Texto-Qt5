@@ -45,7 +45,7 @@ public:
     void changeFont(QString,int);
     void changeAlign(AlignFlag);
     void print(QString);
-    void insertTable();
+    void insertTable(int,int,Qt::Alignment);
     bool isOpenFile();
     bool isSearchFile();
     bool isEmpty();

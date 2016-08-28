@@ -7,6 +7,7 @@
 #include "document.h"
 #include <QtPrintSupport/QPrinter>
 #include <QDebug>
+#include <QTextTable>
 
 document::document(QTextEdit *panel){
     textPanel=panel;
@@ -258,20 +259,22 @@ void document::print(QString name){
 /// \brief insertTable
 /// Método para insertar una tabla en nuestro documento actualmente visible
 ///////////////////
-void document::insertTable(){
-    //Cursor utilizado para realizar el cambio de formato
-    QTextCursor cursor(textPanel->textCursor());
+void document::insertTable(int rows,int cols,Qt::Alignment flag){
+    if(rows>0 && cols>0){
+        //Cursor utilizado para realizar el cambio de formato
+        QTextCursor cursor(textPanel->textCursor());
 
-    //Configuramos nuestro table
-    QTextTableFormat tableFormat;
-    tableFormat.setAlignment(Qt::AlignCenter);
-    tableFormat.setBorder(0.5);
-    tableFormat.setCellSpacing(0);
-    tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
-    tableFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
+        //Configuramos nuestro table
+        QTextTableFormat tableFormat;
+        tableFormat.setAlignment(flag);
+        tableFormat.setBorder(0.5);
+        tableFormat.setCellPadding(10);
+        tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Double);
+        //tableFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
 
-    //Insertamos la table
-    cursor.insertTable(3,3,tableFormat);
+        //Insertamos la table
+        cursor.insertTable(rows,cols,tableFormat);
+    }
 }
 ///
 /// \brief document::isOpenFile
