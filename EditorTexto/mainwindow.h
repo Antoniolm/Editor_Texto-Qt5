@@ -77,6 +77,8 @@ private slots:
 
     void on_actionInsert_Table_triggered();
 
+    void on_actionInsert_Image_triggered();
+
 private:
     Ui::MainWindow *ui;
     QLabel *state;

@@ -410,3 +410,21 @@ void MainWindow::on_actionInsert_Table_triggered()
     TableDialog *tableDia=new TableDialog(&docs[currentPosition]);
     tableDia->exec();
 }
+
+
+////////////////////////
+/// \brief MainWindow::on_actionInsert_Image_triggered
+/// Método para a inserción de una imagen en la posición actual del cursor
+///////////////////////
+void MainWindow::on_actionInsert_Image_triggered()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+
+    //Lanzamos un QFileDialog y obtenemos el nombre de la imagen  a abrir
+    QString fileName= QFileDialog::getOpenFileName(this,tr("Select Image"),"C://","Imagen files (*.jpg)");
+
+    //Si hemos seleccionado un fichero
+    if(!fileName.isEmpty()){
+        docs[currentPosition].insertImage(fileName);
+    }
+}

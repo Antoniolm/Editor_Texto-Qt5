@@ -46,6 +46,7 @@ public:
     void changeAlign(AlignFlag);
     void print(QString);
     void insertTable(int,int,Qt::Alignment);
+    void insertImage(QString);
     bool isOpenFile();
     bool isSearchFile();
     bool isEmpty();

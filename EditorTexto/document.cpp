@@ -261,7 +261,7 @@ void document::print(QString name){
 ///////////////////
 void document::insertTable(int rows,int cols,Qt::Alignment flag){
     if(rows>0 && cols>0){
-        //Cursor utilizado para realizar el cambio de formato
+        //Cursor utilizado para realizar la insercion
         QTextCursor cursor(textPanel->textCursor());
 
         //Configuramos nuestro table
@@ -276,6 +276,28 @@ void document::insertTable(int rows,int cols,Qt::Alignment flag){
         cursor.insertTable(rows,cols,tableFormat);
     }
 }
+
+//////////////////
+/// \brief insertImage
+/// Método para insertar una tabla en nuestro documento actualmente visible
+///////////////////
+void document::insertImage(QString imagePath){
+        //Cursor utilizado para realizar la insercion
+        QTextCursor cursor(textPanel->textCursor());
+
+        //Configuramos nuestro imagen
+        QTextImageFormat ImageFormat;
+        ImageFormat.setHeight(200);
+        ImageFormat.setWidth(200);
+        //ImageFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
+        ImageFormat.setName(imagePath);
+        //tableFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
+
+
+        //Insertamos la Imagen
+        cursor.insertImage(ImageFormat);
+}
+
 ///
 /// \brief document::isOpenFile
 /// \return
