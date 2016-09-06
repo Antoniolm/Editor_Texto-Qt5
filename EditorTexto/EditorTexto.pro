@@ -31,4 +31,5 @@ FORMS    += mainwindow.ui \
     namefiledialog.ui \
     replacedialog.ui \
     informationdialog.ui \
-    tabledialog.ui
+    tabledialog.ui \
+    imagedialog.ui

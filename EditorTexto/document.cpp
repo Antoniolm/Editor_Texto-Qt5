@@ -8,6 +8,7 @@
 #include <QtPrintSupport/QPrinter>
 #include <QDebug>
 #include <QTextTable>
+#include <QImage>
 
 document::document(QTextEdit *panel){
     textPanel=panel;
@@ -220,23 +221,41 @@ void document::changeFont(QString family,int size){
 void document::changeAlign(AlignFlag flag){
     //Cursor utilizado para realizar el cambio de formato
     QTextCursor cursor(textPanel->textCursor());
+    bool isTable=false;
 
-    //Creamos el objeto formato a partir del formato que ya tiene el texto
-    QTextBlockFormat format(cursor.blockFormat());
-
-    switch(flag){
-        case AlignFlag::leftAlign:
-             format.setAlignment(Qt::AlignLeft);
-        break;
-        case AlignFlag::centerAlign:
-            format.setAlignment(Qt::AlignCenter);
-        break;
-        case AlignFlag::rightAlign:
-            format.setAlignment(Qt::AlignRight);
-        break;
+    /*if(cursor.charFormat().isTableFormat()){
+       QTextTableFormat format(cursor.charFormat().toTableFormat());
+       isTable=true;
+       switch(flag){
+           case AlignFlag::leftAlign:
+                format.setAlignment(Qt::AlignLeft);
+           break;
+           case AlignFlag::centerAlign:
+               format.setAlignment(Qt::AlignCenter);
+           break;
+           case AlignFlag::rightAlign:
+               format.setAlignment(Qt::AlignRight);
+           break;
+       }
+       cursor.setCharFormat(format.toCharFormat());
     }
+    else{*/
+        //Creamos el objeto formato a partir del formato que ya tiene el texto
+        QTextBlockFormat format(cursor.blockFormat());
+        switch(flag){
+            case AlignFlag::leftAlign:
+                 format.setAlignment(Qt::AlignLeft);
+            break;
+            case AlignFlag::centerAlign:
+                format.setAlignment(Qt::AlignCenter);
+            break;
+            case AlignFlag::rightAlign:
+                format.setAlignment(Qt::AlignRight);
+            break;
+        }
+        cursor.setBlockFormat(format);
+    //}
 
-    cursor.setBlockFormat(format);
 }
 
 ///////////////////////////
@@ -292,7 +311,6 @@ void document::insertImage(QString imagePath){
         //ImageFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
         ImageFormat.setName(imagePath);
         //tableFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
-
 
         //Insertamos la Imagen
         cursor.insertImage(ImageFormat);

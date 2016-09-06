@@ -31,6 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
     Text->setFontPointSize(9);
 
+    QImage image;
+    //connect(image,SIGNAL(),this,SLOT(close());
+
     document newDoc(Text);
     docs.append(newDoc);
 
