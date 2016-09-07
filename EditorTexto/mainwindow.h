@@ -88,6 +88,7 @@ private:
     bool existFile;
     QString family;
     int sizeText;
+    QString title;
 
 };
 

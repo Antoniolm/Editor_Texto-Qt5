@@ -17,11 +17,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
-
+    title="Yu Editor - ";
     //Inicializamos diferentes variables y opciones
-    this->setWindowTitle("Text Editor");
-    setStyleSheet("QMainWindow {background: #C5AFC6;}");
-    ui->groupQText->setStyleSheet("QTabBar::tab { background-color: #C01EC9; }");
+    this->setWindowTitle(title);
+    setStyleSheet("QMainWindow {background: #F1F5FC;}");
+
+    //menuBar()->setStyleSheet("background-color: #0347CE");
+    //ui->groupQText->setStyleSheet("QTabBar::tab { background-color: #536A97;}");
 
     existFile=false;//I need to review this variable because I think that I dont need it
     this->setFocusPolicy(Qt::NoFocus);
@@ -110,7 +112,7 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::on_actionClose_file_triggered()
 {
     int currentPosition=ui->groupQText->currentIndex();
-    this->setWindowTitle("Text Editor");
+    this->setWindowTitle(title);
 
     //Comprobamos si es la ultima pestaña o no
     if(ui->groupQText->count()!=1){ //Si lo es
@@ -144,7 +146,7 @@ void MainWindow::on_actionOpen_File_triggered()
         ui->actionSave->setEnabled(true);
 
         //Actualizamos el titulo de nuestra ventana con el nombre del txt
-        this->setWindowTitle("Text Editor - "+fileName);
+        this->setWindowTitle(title+fileName);
 
         //Actualizamos el nombre de la pestaña con el nombre del fichero actual
         ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
@@ -194,7 +196,7 @@ void MainWindow::on_actionSaveAs_triggered()
             ui->actionSave->setEnabled(true);
 
             //Actualizamos el titulo de nuestra ventana y de nuestra pestaña con el nombre del txt
-            this->setWindowTitle("Text Editor - " +docs[currentPosition].getPath()+"/"+docs[currentPosition].getName());
+            this->setWindowTitle(title+docs[currentPosition].getPath()+"/"+docs[currentPosition].getName());
             ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
 
        }
@@ -214,7 +216,7 @@ void MainWindow::on_actionSaveAs_triggered()
 void MainWindow::on_groupQText_currentChanged(int index)
 {
     int currentPosition=ui->groupQText->currentIndex();
-    this->setWindowTitle("Text Editor - "+docs[currentPosition].getPath());
+    this->setWindowTitle(title+docs[currentPosition].getPath());
 
     //Actualizamos el estado de ciertos botones dependiendo
     //de si el documento actual tiene o no fichero abierto
