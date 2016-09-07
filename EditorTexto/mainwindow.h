@@ -20,6 +20,7 @@
 #include <QTextStream>
 #include <QIODevice>
 #include <tabledialog.h>
+#include <imagedialog.h>
 
 
 namespace Ui {

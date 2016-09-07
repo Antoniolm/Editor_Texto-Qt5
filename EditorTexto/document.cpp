@@ -46,13 +46,9 @@ bool document::openDocument(QString name){
     fileName=extractName(name);
     path=name;
 
-    //Creamos un QFile con el nombre del fichero seleccionado
+
     file=new QFile(name);
-
-    //Realizamos la apertura del fichero en modo lectura y escritura
     if(!file->open(QFile::ReadOnly | QFile::Text))return false;
-
-    //Realizamos el canal de comunicación y realizamos una lectura del fichero
     QTextStream in(file);
     QString contentFile = in.readAll();
 
@@ -76,10 +72,7 @@ bool document::createDocument(){
     //Creamos un QFile con el nombre del fichero seleccionado
     file=new QFile(path+"/"+fileName);
 
-    //Realizamos la apertura del fichero en modo escriturae
     if(!file->open(QFile::WriteOnly | QFile::Text))return false;
-
-    //Realizamos el canal de comunicación y realizamos una escritura en el fichero
     QTextStream out(file);
     out<< textPanel->toPlainText();
 
@@ -102,21 +95,7 @@ void document::search(QString elemento){
     //Realizamos el reemplazo
     texto.replace(elemento,nuevoElemento);
     textPanel->setHtml(texto.replace("\n","<br>"));
-
-    //Actualizamos nuestro bool de estado
     isSearch=true;
-
-    /*textPanel->textCursor().insertImage(path+".jpg");
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFileName(path+".pdf");
-    printer.setFullPage(true);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    textPanel->print(&printer);
-    printer.newPage();*/
-
-    //textPanel->textCursor().insertImage("c:\\prueba.png");
-    //QPainter painter;
-
 }
 
 ///////////////////////////////
@@ -125,13 +104,8 @@ void document::search(QString elemento){
 /// en nuestro documento
 /////////////////////////
 void document::replace(QString oldElement, QString newElement){
-    //Obtenemos el contenido del textPanel
     QString texto=textPanel->toPlainText();
-
-    //Reemplazamos los elementos
     texto.replace(oldElement,newElement);
-
-    //Actualizamos el contenido del textPanel
     textPanel->setText(texto);
 
 }
@@ -145,38 +119,27 @@ void document::changeFont(FormatFlag flag){
     QTextCursor cursor(textPanel->textCursor());
 
     //Cursor para checkear correctamente el formato actual del texto
-    //seleccionado o de la posición actual del cursor
     QTextCursor checkCursor(textPanel->textCursor());
     QString texto;
 
     //Cambiamos la posición de este cursor auxiliar para las comprobaciones de formato
-    //De esta forma nos permite obtener de forma correcta el formato del texto seleccionado
     checkCursor.setPosition(cursor.selectionStart()+1,QTextCursor::MoveAnchor);
     checkCursor.setPosition(cursor.selectionEnd(),QTextCursor::KeepAnchor);
-
-    //Creamos el objeto formato a partir del formato que ya tiene el texto
     QTextCharFormat font(checkCursor.charFormat());
 
     //Comprobamos si el texto esta en underline
     if(detectFormat(flag,&checkCursor)){
-        //Cambiamos el QTextCharFormat
         configureFont(flag,&font,false);
-
-        //Realizamos el cambio de formato en el texto seleccionado
         cursor.setCharFormat(font);
     }
     else{ //Si no esta
-        //Cambiamos el QTextCharFormat
         configureFont(flag,&font,true);
 
         //Si el cursor tiene un texto seleccionado
         if(cursor.hasSelection()){
-
-            //Realizamos el cambio de formato en el texto seleccionado
             cursor.setCharFormat(font);
         }
         else{ //si no hay texto seleccionado
-            //Realizamos el cambio de formato en un texto vacio
             texto=" ";
             cursor.insertText(texto,font);
             cursor.setPosition(cursor.position()-1);
@@ -192,21 +155,15 @@ void document::changeFont(QString family,int size){
     //Cursor utilizado para realizar el cambio de formato
     QTextCursor cursor(textPanel->textCursor());
 
-    //Creamos el objeto formato a partir del formato que ya tiene el texto
     QTextCharFormat font(cursor.charFormat());
-
-    //Modificamos el formato
     font.setFontFamily(family);
     font.setFontPointSize(size);
 
     //Si el cursor tiene un texto seleccionado
     if(cursor.hasSelection()){
-
-        //Realizamos el cambio de formato en el texto seleccionado
         cursor.setCharFormat(font);
     }
     else{ //si no hay texto seleccionado
-        //Realizamos el cambio de formato en un texto vacio
         QString texto(" ");
         cursor.insertText(texto,font);
         cursor.setPosition(cursor.position()-1);
@@ -300,17 +257,15 @@ void document::insertTable(int rows,int cols,Qt::Alignment flag){
 /// \brief insertImage
 /// Método para insertar una tabla en nuestro documento actualmente visible
 ///////////////////
-void document::insertImage(QString imagePath){
+void document::insertImage(QString imagePath,int width,int height){
         //Cursor utilizado para realizar la insercion
         QTextCursor cursor(textPanel->textCursor());
 
         //Configuramos nuestro imagen
         QTextImageFormat ImageFormat;
-        ImageFormat.setHeight(200);
-        ImageFormat.setWidth(200);
-        //ImageFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
+        ImageFormat.setHeight(height);
+        ImageFormat.setWidth(width);
         ImageFormat.setName(imagePath);
-        //tableFormat.setWidth(QTextLength(QTextLength::PercentageLength, 40));
 
         //Insertamos la Imagen
         cursor.insertImage(ImageFormat);

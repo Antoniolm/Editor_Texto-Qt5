@@ -20,10 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Inicializamos diferentes variables y opciones
     this->setWindowTitle("Text Editor");
+    setStyleSheet("QMainWindow {background: #C5AFC6;}");
+    ui->groupQText->setStyleSheet("QTabBar::tab { background-color: #C01EC9; }");
+
     existFile=false;//I need to review this variable because I think that I dont need it
     this->setFocusPolicy(Qt::NoFocus);
-
-    //Inicializamos el estado de los botones close and save
     ui->actionSave->setEnabled(false);
 
     //Creamos un nuevo document y lo añadimos al QList
@@ -31,14 +32,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
     Text->setFontPointSize(9);
 
-    QImage image;
-    //connect(image,SIGNAL(),this,SLOT(close());
-
     document newDoc(Text);
     docs.append(newDoc);
-
-    //Cambiamos el titulo de la pestaña
     ui->groupQText->addTab(Text,"Untitled.txt");
+
 
     //Inicializamos las familias y tamaños disponibles
     for(int size=6;size<=30;size++)
@@ -83,7 +80,6 @@ void MainWindow::on_cursorPositionChanged()
 ///////////////////////////////////////////////////////////////
 void MainWindow::on_actionNew_File_triggered()
 {
-    //Creamos un nuevo document and lo añadimos al QList
     QTextEdit *Text=new QTextEdit();
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
 
@@ -117,17 +113,11 @@ void MainWindow::on_actionClose_file_triggered()
     this->setWindowTitle("Text Editor");
 
     //Comprobamos si es la ultima pestaña o no
-    //Ya que si es la ultima pestaña no se eliminara sino que se
-    //limpiara la información de ella
-    if(ui->groupQText->count()!=1){
-
-        //eliminamos del QList el docs
+    if(ui->groupQText->count()!=1){ //Si lo es
         docs.removeAt(currentPosition);
-
-        //Eliminamos la pestaña
         ui->groupQText->removeTab(currentPosition);
     }
-    else{
+    else{//Si no es la ultima pestaña
         docs[currentPosition].clear(); //reInicializamos el documento
         ui->groupQText->setTabText(currentPosition,"Untitled.txt"); //Ponemos el nombre por defecto del fichero
     }
@@ -190,26 +180,25 @@ void MainWindow::on_actionSaveAs_triggered()
                                                 "C://",
                                                 QFileDialog::ShowDirsOnly
                                                 | QFileDialog::DontResolveSymlinks);
-    //Si no esta vacio
-    if(!dir.isEmpty()){
+
+    if(!dir.isEmpty()){//Si no esta vacio
         //Obtenemos el nuevo nombre y creamos el documento con dicho nombre
         NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"),dialogFlag::newNameFile);
         newdialog->exec();
 
         if(docs[currentPosition].getName()!=".txt"){
-            //Introducimos nuestro path en el documento
             docs[currentPosition].setPath(dir);
-
-            //Creamos el nuevo documento
             docs[currentPosition].createDocument();
-            //Cambiamos el estado de los botones save
+
+            //Cambiamos el estado del boton save
             ui->actionSave->setEnabled(true);
 
             //Actualizamos el titulo de nuestra ventana y de nuestra pestaña con el nombre del txt
             this->setWindowTitle("Text Editor - " +docs[currentPosition].getPath()+"/"+docs[currentPosition].getName());
             ui->groupQText->setTabText(currentPosition,docs[currentPosition].getName());
+
        }
-       else{//Restauramos el nombre del fichero
+       else{//Si esta vacio
             docs[currentPosition].setName(oldName);
         }
 
@@ -224,10 +213,7 @@ void MainWindow::on_actionSaveAs_triggered()
 //////////////////////////////////////////////////
 void MainWindow::on_groupQText_currentChanged(int index)
 {
-    //Obtenemos la posición actual del Tab widget
     int currentPosition=ui->groupQText->currentIndex();
-
-    //Actualizamos el titulo de la ventana principal
     this->setWindowTitle("Text Editor - "+docs[currentPosition].getPath());
 
     //Actualizamos el estado de ciertos botones dependiendo
@@ -239,12 +225,10 @@ void MainWindow::on_groupQText_currentChanged(int index)
         ui->actionSave->setEnabled(false);
     }
 
-    //Actualizamos el estado para desactivar la busqueda si se realiza un cambio de tab
-    if(docs[currentPosition].isSearchFile()){
+    if(docs[currentPosition].isSearchFile()){ //Si se ha realizado una busqueda
         docs[currentPosition].desactiveSearch();
     }
 
-    //Actualizamos el estado de el nº de filas y columnas
     ui->state->setText("Rows -  colums - ");
 }
 
@@ -255,7 +239,6 @@ void MainWindow::on_groupQText_currentChanged(int index)
 ///////////////////////////
 void MainWindow::on_actionSearch_triggered()
 {
-    //Obtenemos la posición actual del Tab widget
     int currentPosition=ui->groupQText->currentIndex();
 
     //Lanzamos nuestro nameFileDialog
@@ -273,7 +256,6 @@ void MainWindow::on_actionSearch_triggered()
 //////////////////////////////////////
 void MainWindow::on_actionReplace_triggered()
 {
-    //Obtenemos la posición actual del Tab widget
     int currentPosition=ui->groupQText->currentIndex();
 
     //Lanzamos la interfaz para obtener la información a reemplazar
@@ -335,10 +317,8 @@ void MainWindow::on_actionExport_to_pdf_triggered()
                                                 | QFileDialog::DontResolveSymlinks);
     //Si no esta vacio
     if(!dir.isEmpty()){
-        //Insertamos el path de nuestro documento pdf
         docs[currentPosition].setPathPdf(dir);
 
-        //Obtenemos el nuevo nombre y creamos el documento con dicho nombre
         NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"),dialogFlag::expPdf);
         newdialog->exec();
 
@@ -423,11 +403,17 @@ void MainWindow::on_actionInsert_Image_triggered()
 {
     int currentPosition=ui->groupQText->currentIndex();
 
-    //Lanzamos un QFileDialog y obtenemos el nombre de la imagen  a abrir
     QString fileName= QFileDialog::getOpenFileName(this,tr("Select Image"),"C://","Imagen files (*.jpg)");
 
     //Si hemos seleccionado un fichero
     if(!fileName.isEmpty()){
-        docs[currentPosition].insertImage(fileName);
+        int width=60,height=60;
+
+        ImageDialog *imageDia=new ImageDialog(width,height);
+        imageDia->exec();
+        width=imageDia->getWidth();
+        height=imageDia->getHeight();
+
+        docs[currentPosition].insertImage(fileName,width,height);
     }
 }
