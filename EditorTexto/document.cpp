@@ -21,6 +21,9 @@ document::document(QTextEdit *panel){
 ///Método para la guardar los cambios realizados sobre un fichero
 ///////////////////////////////
 void document::saveDocument(){
+    if(isSearch)
+        desactiveSearch();
+
     //Realizamos la apertura del fichero en modo escritura y con la bandera para reliazar Truncate
     if(!file->open(QFile::WriteOnly| QFile::Truncate | QFile::Text))return;
 
@@ -69,6 +72,7 @@ bool document::openDocument(QString name){
 /// textPanel del objeto que lo llama
 /// ///////////////////////////////
 bool document::createDocument(){
+    if(isSearch) desactiveSearch();
     //Creamos un QFile con el nombre del fichero seleccionado
     file=new QFile(path+"/"+fileName);
 
@@ -88,13 +92,18 @@ bool document::createDocument(){
 /// Método que busca un elemento en nuestro documento
 /// ///////////////////////////////
 void document::search(QString elemento){
-    QString nuevoElemento("<b>"+elemento+"</b>");
+    if(isSearch){
+        desactiveSearch();
+    }
+    QString nuevoElemento("<span style='background: yellow'>"+elemento+"</span>");
+    elementSearch=elemento;
+    elementWithHtml=nuevoElemento;
 
-    QString texto=textPanel->toPlainText();
+    QString texto=textPanel->toHtml();
 
     //Realizamos el reemplazo
     texto.replace(elemento,nuevoElemento);
-    textPanel->setHtml(texto.replace("\n","<br>"));
+    textPanel->setHtml(texto);
     isSearch=true;
 }
 
@@ -104,9 +113,9 @@ void document::search(QString elemento){
 /// en nuestro documento
 /////////////////////////
 void document::replace(QString oldElement, QString newElement){
-    QString texto=textPanel->toPlainText();
+    QString texto=textPanel->toHtml();
     texto.replace(oldElement,newElement);
-    textPanel->setText(texto);
+    textPanel->setHtml(texto);
 
 }
 
@@ -349,8 +358,11 @@ void document::setPathPdf(QString entrada){
     pathPdf=entrada;
 }
 void document::desactiveSearch(){
-    //Cambiamos el texto de html a texto Plano
-    textPanel->setText(textPanel->toPlainText());
+    QString texto=textPanel->toHtml();
+
+    //Realizamos el reemplazo
+    texto.replace("background-color:#ffff00;","");
+    textPanel->setHtml(texto);
     isSearch=false;
 }
 
