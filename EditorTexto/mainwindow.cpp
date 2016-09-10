@@ -18,14 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     title="Yu Editor - ";
+
     //Inicializamos diferentes variables y opciones
     this->setWindowTitle(title);
     setStyleSheet("QMainWindow {background: #F1F5FC;}");
-
-    //menuBar()->setStyleSheet("background-color: #0347CE");
-    //ui->groupQText->setStyleSheet("QTabBar::tab { background-color: #536A97;}");
-
-    existFile=false;//I need to review this variable because I think that I dont need it
+    ui->formatBar->addStretch(1);
+    //ui->formatBar->setSizeConstraint(QLayout.setSizeConstraint(););
     this->setFocusPolicy(Qt::NoFocus);
     ui->actionSave->setEnabled(false);
 

@@ -85,7 +85,6 @@ private:
     QLabel *state;
     QTabWidget *groupQText;
     QList<document> docs;
-    bool existFile;
     QString family;
     int sizeText;
     QString title;
