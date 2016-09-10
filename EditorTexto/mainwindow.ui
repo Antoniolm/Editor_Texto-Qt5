@@ -187,6 +187,7 @@
     </property>
     <addaction name="actionSearch"/>
     <addaction name="actionReplace"/>
+    <addaction name="actionResize_Image"/>
    </widget>
    <widget class="QMenu" name="menuHelp_2">
     <property name="title">
@@ -285,6 +286,11 @@
   <action name="actionInsert_Table">
    <property name="text">
     <string>Insert Table</string>
+   </property>
+  </action>
+  <action name="actionResize_Image">
+   <property name="text">
+    <string>Resize Image</string>
    </property>
   </action>
  </widget>

@@ -310,6 +310,27 @@ bool document::isEmpty(){
     return salida;
 }
 
+/////////
+/// \brief document::isImage
+/// \return
+////////
+bool document::isImage(){
+    bool salida=false;
+    QTextCursor cursor(textPanel->textCursor());
+
+    //Cursor para checkear correctamente el formato actual del texto
+    QTextCursor checkCursor(textPanel->textCursor());
+
+    //Cambiamos la posición de este cursor auxiliar para las comprobaciones de formato
+    checkCursor.setPosition(cursor.selectionStart()+1,QTextCursor::MoveAnchor);
+    checkCursor.setPosition(cursor.selectionEnd(),QTextCursor::KeepAnchor);
+
+    if(checkCursor.charFormat().isImageFormat() && cursor.hasSelection()){
+        salida=true;
+    }
+    return salida;
+}
+
 ///
 /// \brief document::getName
 /// \return
@@ -342,6 +363,30 @@ void document::setPath(QString entrada){
     path=entrada;
 }
 
+/////////////////////
+/// \brief document::getSizeImage
+/// \return
+////////////////////
+std::pair<int,int> document::getSizeImage(){
+    std::pair<int,int> salida;
+
+    QTextCursor cursor(textPanel->textCursor());
+
+    //Cursor para checkear correctamente el formato actual del texto
+    QTextCursor checkCursor(textPanel->textCursor());
+
+    //Cambiamos la posición de este cursor auxiliar para las comprobaciones de formato
+    checkCursor.setPosition(cursor.selectionStart()+1,QTextCursor::MoveAnchor);
+    checkCursor.setPosition(cursor.selectionEnd(),QTextCursor::KeepAnchor);
+
+    QTextImageFormat format=checkCursor.charFormat().toImageFormat();
+    salida.second=format.height();
+    salida.first=format.width();
+
+    return salida;
+
+}
+
 ///////////////////////
 /// \brief document::setName
 /// \param entrada
@@ -357,6 +402,20 @@ void document::setName(QString entrada){
 void document::setPathPdf(QString entrada){
     pathPdf=entrada;
 }
+///
+/// \brief setSizeImage
+///
+void document::setSizeImage(int height,int width){
+    QTextCursor cursor(textPanel->textCursor());
+
+    QTextImageFormat format=cursor.charFormat().toImageFormat();
+    format.setHeight(height);
+    format.setWidth(width);
+
+    cursor.setCharFormat(format);
+}
+
+
 void document::desactiveSearch(){
     QString texto=textPanel->toHtml();
 

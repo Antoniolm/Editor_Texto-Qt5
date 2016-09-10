@@ -21,6 +21,7 @@
 #include <QIODevice>
 #include <tabledialog.h>
 #include <imagedialog.h>
+#include <QDebug>
 
 
 namespace Ui {
@@ -79,6 +80,8 @@ private slots:
     void on_actionInsert_Table_triggered();
 
     void on_actionInsert_Image_triggered();
+
+    void on_actionResize_Image_triggered();
 
 private:
     Ui::MainWindow *ui;

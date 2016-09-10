@@ -417,3 +417,19 @@ void MainWindow::on_actionInsert_Image_triggered()
         docs[currentPosition].insertImage(fileName,width,height);
     }
 }
+
+//////////////////////////////
+/// \brief MainWindow::on_actionResize_Image_triggered
+///
+///
+///////////////////////////////
+void MainWindow::on_actionResize_Image_triggered()
+{
+    int currentPosition=ui->groupQText->currentIndex();
+    std::pair<int,int> sizeImage;
+    if(docs[currentPosition].isImage())
+        sizeImage=docs[currentPosition].getSizeImage();
+    ImageDialog *imageDia=new ImageDialog(sizeImage.first,sizeImage.second);
+    imageDia->exec();
+    docs[currentPosition].setSizeImage(imageDia->getHeight(),imageDia->getWidth());
+}

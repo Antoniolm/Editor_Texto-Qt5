@@ -15,6 +15,7 @@
 #include <QTextStream>
 #include <QFileDialog>
 
+
 //Enum que nos permite realizar diferente formatos
 //Para asi poder conocer el tipo de formato que se esta
 //introduciendo en ese momento
@@ -50,9 +51,12 @@ public:
     bool isOpenFile();
     bool isSearchFile();
     bool isEmpty();
+    bool isImage();
     QString getName();
     QString getPath();
+    std::pair<int,int> getSizeImage();
     QTextEdit* getTextPanel();
+    void setSizeImage(int,int);
     void setPath(QString);
     void setPathPdf(QString);
     void setName(QString);
