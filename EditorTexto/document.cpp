@@ -92,7 +92,7 @@ bool document::createDocument(){
 /// Método que busca un elemento en nuestro documento
 /// ///////////////////////////////
 void document::search(QString elemento){
-    if(isSearch){
+    if(isSearch){ //Si ya teniamos una busqueda activa
         desactiveSearch();
     }
     QString nuevoElemento("<span style='background: yellow'>"+elemento+"</span>");
@@ -136,7 +136,7 @@ void document::changeFont(FormatFlag flag){
     checkCursor.setPosition(cursor.selectionEnd(),QTextCursor::KeepAnchor);
     QTextCharFormat font(checkCursor.charFormat());
 
-    //Comprobamos si el texto esta en underline
+    //Comprobamos si el texto esta en el formato
     if(detectFormat(flag,&checkCursor)){
         configureFont(flag,&font,false);
         cursor.setCharFormat(font);
@@ -189,38 +189,20 @@ void document::changeAlign(AlignFlag flag){
     QTextCursor cursor(textPanel->textCursor());
     bool isTable=false;
 
-    /*if(cursor.charFormat().isTableFormat()){
-       QTextTableFormat format(cursor.charFormat().toTableFormat());
-       isTable=true;
-       switch(flag){
-           case AlignFlag::leftAlign:
-                format.setAlignment(Qt::AlignLeft);
-           break;
-           case AlignFlag::centerAlign:
-               format.setAlignment(Qt::AlignCenter);
-           break;
-           case AlignFlag::rightAlign:
-               format.setAlignment(Qt::AlignRight);
-           break;
-       }
-       cursor.setCharFormat(format.toCharFormat());
+    //Creamos el objeto formato a partir del formato que ya tiene el texto
+    QTextBlockFormat format(cursor.blockFormat());
+    switch(flag){
+    case AlignFlag::leftAlign:
+        format.setAlignment(Qt::AlignLeft);
+        break;
+    case AlignFlag::centerAlign:
+        format.setAlignment(Qt::AlignCenter);
+        break;
+    case AlignFlag::rightAlign:
+        format.setAlignment(Qt::AlignRight);
+        break;
     }
-    else{*/
-        //Creamos el objeto formato a partir del formato que ya tiene el texto
-        QTextBlockFormat format(cursor.blockFormat());
-        switch(flag){
-            case AlignFlag::leftAlign:
-                 format.setAlignment(Qt::AlignLeft);
-            break;
-            case AlignFlag::centerAlign:
-                format.setAlignment(Qt::AlignCenter);
-            break;
-            case AlignFlag::rightAlign:
-                format.setAlignment(Qt::AlignRight);
-            break;
-        }
-        cursor.setBlockFormat(format);
-    //}
+    cursor.setBlockFormat(format);
 
 }
 

@@ -23,11 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle(title);
     setStyleSheet("QMainWindow {background: #F1F5FC;}");
     ui->formatBar->addStretch(1);
-    //ui->formatBar->setSizeConstraint(QLayout.setSizeConstraint(););
     this->setFocusPolicy(Qt::NoFocus);
     ui->actionSave->setEnabled(false);
 
-    //Creamos un nuevo document y lo añadimos al QList
+    //Creamos un nuevo document y lo añadimos al QList y al QtabWidget
     QTextEdit *Text=new QTextEdit();
     connect(Text,SIGNAL(cursorPositionChanged()),this,SLOT(on_cursorPositionChanged()));
     Text->setFontPointSize(9);
@@ -41,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int size=6;size<=30;size++)
         ui->sizefont->addItem(QString::number(size),size);
 
+    //Añadimos los slot
     connect(ui->sizefont,SIGNAL(currentIndexChanged(QString)),this,SLOT(on_currentSizeChanged()));
     connect(ui->familyfont,SIGNAL(currentIndexChanged(QString)),this,SLOT(on_currentFamilyChanged()));
 
@@ -66,9 +66,14 @@ MainWindow::~MainWindow()
 //////////////////////////
 void MainWindow::on_cursorPositionChanged()
 {
-    int currentPosition=ui->groupQText->currentIndex();
     //Obtenemos el cursor de nuestro QTextEdit
+    int currentPosition=ui->groupQText->currentIndex();
     QTextCursor cursor = (docs[currentPosition].getTextPanel())->textCursor();
+
+    //Actualizamos botones
+    if(docs[currentPosition].isImage()) ui->actionResize_Image->setEnabled(true);
+    else ui->actionResize_Image->setEnabled(false);
+
     //Actualizamos la posición del cursor
     ui->state->setText("Rows - "+QString::number(cursor.blockNumber())+" colums - "+ QString::number(cursor.positionInBlock()));
 }
@@ -217,13 +222,8 @@ void MainWindow::on_groupQText_currentChanged(int index)
     this->setWindowTitle(title+docs[currentPosition].getPath());
 
     //Actualizamos el estado de ciertos botones dependiendo
-    //de si el documento actual tiene o no fichero abierto
-    if(docs[currentPosition].isOpenFile()){
-        ui->actionSave->setEnabled(true);
-    }
-    else{
-        ui->actionSave->setEnabled(false);
-    }
+    if(docs[currentPosition].isOpenFile()) ui->actionSave->setEnabled(true);
+    else ui->actionSave->setEnabled(false);
 
     if(docs[currentPosition].isSearchFile()){ //Si se ha realizado una busqueda
         docs[currentPosition].desactiveSearch();
@@ -427,9 +427,11 @@ void MainWindow::on_actionResize_Image_triggered()
 {
     int currentPosition=ui->groupQText->currentIndex();
     std::pair<int,int> sizeImage;
-    if(docs[currentPosition].isImage())
+
+    if(docs[currentPosition].isImage()){ //Si tenemos seleccionada una imagen
         sizeImage=docs[currentPosition].getSizeImage();
-    ImageDialog *imageDia=new ImageDialog(sizeImage.first,sizeImage.second);
-    imageDia->exec();
-    docs[currentPosition].setSizeImage(imageDia->getHeight(),imageDia->getWidth());
+        ImageDialog *imageDia=new ImageDialog(sizeImage.first,sizeImage.second);
+        imageDia->exec();
+        docs[currentPosition].setSizeImage(imageDia->getHeight(),imageDia->getWidth());
+    }
 }
