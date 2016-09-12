@@ -11,7 +11,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = EditorTexto
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         mainwindow.cpp \
     document.cpp \
@@ -35,3 +34,6 @@ FORMS    += mainwindow.ui \
     informationdialog.ui \
     tabledialog.ui \
     imagedialog.ui
+
+RESOURCES += \
+    resource.qrc

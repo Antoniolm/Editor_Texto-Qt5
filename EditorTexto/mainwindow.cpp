@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->formatBar->addStretch(1);
     this->setFocusPolicy(Qt::NoFocus);
     ui->actionSave->setEnabled(false);
+    //setWindowIcon(QIcon("/icon.png"));
 
     //Creamos un nuevo document y lo añadimos al QList y al QtabWidget
     QTextEdit *Text=new QTextEdit();
