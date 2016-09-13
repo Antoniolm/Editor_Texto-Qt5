@@ -207,7 +207,7 @@ void MainWindow::on_actionSaveAs_triggered()
        else{//Si esta vacio
             docs[currentPosition].setName(oldName);
         }
-
+        delete newdialog;
     }
 }
 
@@ -246,7 +246,7 @@ void MainWindow::on_actionSearch_triggered()
     NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Search"),tr("Parameter of search"),dialogFlag::search);
     newdialog->exec();
 
-
+    delete newdialog;
 }
 
 ///////////////////////////
@@ -262,6 +262,8 @@ void MainWindow::on_actionReplace_triggered()
     //Lanzamos la interfaz para obtener la información a reemplazar
     ReplaceDialog *replace=new ReplaceDialog(&docs[currentPosition]);
     replace->exec();
+
+    delete replace;
 }
 
 ///////////////////////////////////
@@ -276,6 +278,8 @@ void MainWindow::on_actionAbout_triggered()
                  " Copyright (C) 2016");
     InformationDialog *information=new InformationDialog(tr("Version"),info);
     information->show();
+
+    delete information;
 }
 
 void MainWindow::on_pushButton_3_clicked()
@@ -323,6 +327,7 @@ void MainWindow::on_actionExport_to_pdf_triggered()
         NameFileDialog *newdialog=new NameFileDialog(&docs[currentPosition], tr("Name file"),tr("Name"),dialogFlag::expPdf);
         newdialog->exec();
 
+        delete newdialog;
     }
 
 }
@@ -393,6 +398,8 @@ void MainWindow::on_actionInsert_Table_triggered()
 
     TableDialog *tableDia=new TableDialog(&docs[currentPosition]);
     tableDia->exec();
+
+    delete tableDia;
 }
 
 
@@ -416,6 +423,8 @@ void MainWindow::on_actionInsert_Image_triggered()
         height=imageDia->getHeight();
 
         docs[currentPosition].insertImage(fileName,width,height);
+
+        delete imageDia;
     }
 }
 
@@ -434,5 +443,7 @@ void MainWindow::on_actionResize_Image_triggered()
         ImageDialog *imageDia=new ImageDialog(sizeImage.first,sizeImage.second);
         imageDia->exec();
         docs[currentPosition].setSizeImage(imageDia->getHeight(),imageDia->getWidth());
+
+        delete imageDia;
     }
 }
