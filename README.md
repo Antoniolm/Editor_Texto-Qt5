@@ -10,12 +10,7 @@ La principales funcionalidades del editor son:
 * Inserción y modificación de tamaño y posición de una imagen
 * Inserción de una tabla
 * Cambio del formato del texto. Los cambios de formato que podemos realizar son:
- * Familia
- * Tamaño
- * Negrita
- * Cursiva
- * Subrayado
- * Alineacion (central, izquierda y derecha)
+  Familia, Tamaño, Negrita, Cursiva, Subrayado, Alineacion 
 
 ### Licencia
 
